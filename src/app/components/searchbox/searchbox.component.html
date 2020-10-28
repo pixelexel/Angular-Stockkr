@@ -1,7 +1,15 @@
+<!-- <link
+  rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css"
+  integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd"
+  crossorigin="anonymous"
+/>
+<script src="https://use.fontawesome.com/f4737361cc.js"></script> -->
+
 <div>
   <form class="example-form">
     <mat-form-field class="example-full-width">
-      <div class="input-group">
+      <!-- <div class="input-group">
         <input
           class="form-control py-2 rounded-pill mr-1 pr-5"
           placeholder="Enter stock name"
@@ -16,15 +24,17 @@
             <i class="fa fa-search"></i>
           </button>
         </span>
-      </div>
-      <!-- <input
+      </div> -->
+      <input
         type="text"
         placeholder="Enter stock name"
         aria-label="Number"
         matInput
         [formControl]="myControl"
         [matAutocomplete]="auto"
-      /> -->
+        style="border-radius: 30px"
+      />
+      <!-- <a [routerLink]="['/Product', product.productID]">{{product.name}} </a> -->
       <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
         <mat-option *ngIf="isLoading" class="is-loading"
           ><mat-spinner diameter="20"></mat-spinner

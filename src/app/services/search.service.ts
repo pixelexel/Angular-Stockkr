@@ -12,6 +12,6 @@ export class SearchService {
   constructor(private http:HttpClient) { }
   
   getStocks(query):Observable<Stock[]> {
-    return this.http.get<Stock[]>(`${this.autocompleteUrl}${query}`);   
+    return this.http.get<Stock[]>(`${this.autocompleteUrl}${query}`);      
   }
 }

@@ -8,6 +8,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HttpClientModule } from '@angular/common/http';
+import { MatTabsModule } from '@angular/material/tabs';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -16,6 +18,10 @@ import { SearchboxComponent } from './components/searchbox/searchbox.component';
 import { WatchlistComponent } from './components/watchlist/watchlist.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DetailsComponent } from './components/details/details.component';
+import { NewsComponent } from './components/news/news.component';
+import { DetailschartComponent } from './components/detailschart/detailschart.component';
+import { ChartComponent } from './components/chart/chart.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +29,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     NavComponent,
     SearchboxComponent,
     WatchlistComponent,
-    PortfolioComponent
+    PortfolioComponent,
+    DetailsComponent,
+    NewsComponent,
+    DetailschartComponent,
+    ChartComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,11 +46,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatProgressSpinnerModule,
     BrowserAnimationsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTabsModule,
+    HighchartsChartModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
-
-
+export class AppModule {}

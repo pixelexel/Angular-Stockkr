@@ -1,0 +1,142 @@
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+<div class="container">
+  <div class="row">
+    <div
+      id="remove_from_list"
+      style="display: none"
+      class="alert alert-danger alert-dismissible"
+      role="alert"
+    >
+      {{ tickerTitle }} removed from Watchlist.
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div
+      id="add_to_list"
+      style="display: none"
+      class="alert alert-success alert-dismissible"
+      role="alert"
+    >
+      {{ tickerTitle }} added to Watchlist.
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h1>{{ tickerTitle }}</h1>
+      <div style="font-size: 0.5vw">
+        <i
+          (click)="toggleStar()"
+          class="fa fa-5x"
+          style="color: yellow"
+          [class.fa-star]="inWatchlist"
+        ></i>
+        <i
+          (click)="toggleStar()"
+          class="fa fa-5x"
+          [class.fa-star-o]="!inWatchlist"
+        ></i>
+      </div>
+      <p style="float: none">{{ name }}</p>
+      <p>{{ exchangeCode }}</p>
+    </div>
+    <ng-template #content let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+        <button
+          type="button"
+          class="close"
+          aria-label="Close"
+          (click)="modal.dismiss('Cross click')"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="dateOfBirth">Date of birth</label>
+            <div class="input-group">
+              <input
+                id="dateOfBirth"
+                class="form-control"
+                placeholder="yyyy-mm-dd"
+                name="dp"
+                ngbDatepicker
+                #dp="ngbDatepicker"
+              />
+              <div class="input-group-append">
+                <button
+                  class="btn btn-outline-secondary calendar"
+                  (click)="dp.toggle()"
+                  type="button"
+                ></button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-dark"
+          (click)="modal.close('Save click')"
+        >
+          Save
+        </button>
+      </div>
+    </ng-template>
+    <button class="btn btn-lg btn-outline-primary" (click)="open(content)">
+      Launch demo modal
+    </button>
+    <hr />
+    <pre>{{ closeResult }}</pre>
+
+    <div class="col">2 of 2</div>
+  </div>
+  <div class="row">
+    <mat-tab-group animationDuration="0ms">
+      <!-- <mat-tab label="First"
+      >{{ startDate }} {{ description }}
+      <app-detailschart [ticker]="ticker"></app-detailschart
+    ></mat-tab> -->
+      <mat-tab label="Second">
+        <div class="news_tab">
+          <div class="row">
+            <div class="col">
+              <table style="float: left">
+                <tr *ngFor="let article of articles; index as i">
+                  <td *ngIf="i % 2">{{ article.title }} {{ i }}</td>
+                </tr>
+              </table>
+            </div>
+            <div class="col">
+              <table>
+                <tr *ngFor="let article of articles; index as i">
+                  <td *ngIf="!(i % 2)">{{ article.title }} {{ i }}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      <!-- <mat-tab label="Third"><app-chart [ticker]="ticker"></app-chart></mat-tab> -->
+    </mat-tab-group>
+  </div>
+</div>
