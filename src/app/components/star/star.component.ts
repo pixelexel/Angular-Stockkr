@@ -46,7 +46,10 @@ export class StarComponent implements OnInit {
     if (localStorage.getItem(this.ticker)) {
       this.inWatchlist = true;
     }
-    if (localStorage.getItem('watchlist') !== 'undefined') {
+    if (
+      localStorage.getItem('watchlist') !== 'undefined' &&
+      localStorage.getItem('watchlist') !== null
+    ) {
       console.log(localStorage.getItem('watchlist'));
       this.watchlist = JSON.parse(localStorage.getItem('watchlist'));
       console.log(this.watchlist);

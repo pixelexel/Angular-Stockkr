@@ -2,12 +2,33 @@
   <p>My Watchlist</p>
   <div class="row">
     <div class="col">
-      <div class="card">
-        <div class="card-body">
-          NVDA
-          <button type="button" class="close" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+      <div class="card" *ngFor="let stock of stockList">
+        <div *ngIf="stock.ticker">
+          <div
+            class="close"
+            aria-label="Close"
+            (click)="closeCard(stock.ticker)"
+          >
+            <span
+              aria-hidden="true"
+              style="
+                float: right;
+                margin-right: 0.3em;
+                font-size: 1em;
+                cursor: pointer;
+              "
+              >&times;</span
+            >
+          </div>
+          <a [routerLink]="['/details', stock.ticker]">
+            <div
+              class="card-body"
+              (click)="linkToDetails(stock.ticker)"
+              style="float: left; display: inline"
+            >
+              {{ stock.ticker }}
+            </div>
+          </a>
         </div>
       </div>
     </div>

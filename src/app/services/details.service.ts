@@ -30,4 +30,10 @@ export class DetailsService {
   getCharts2(ticker, date) {
     return this.http.get(`${this.charts2Url}${ticker}&date=${date}`);
   }
+  getWatchlist(query): Observable<Stock> {
+    return this.http.get<Stock>(`${this.lastPriceUrl}${query}`);
+  }
+  getWatchlistName(query): Observable<Stock> {
+    return this.http.get<Stock>(`${this.detailsUrl}${query}`);
+  }
 }

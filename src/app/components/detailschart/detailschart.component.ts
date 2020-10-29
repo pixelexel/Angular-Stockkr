@@ -30,11 +30,14 @@ export class DetailschartComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.today);
+    //MARKET CLOSE => check prev day after day change
+    //Check day before for when market is closed
     //LAST TIMESTAMP FROM 4.1.2 for holidays
     this.detailsService
       .getCharts1(this.ticker, this.today)
       .subscribe((data) => {
         let chartData = Object.values(data);
+        //console.log(chartData);
         for (var i = 0; i < chartData.length; i++) {
           //DAYLIGHT!
           //convert to pst
