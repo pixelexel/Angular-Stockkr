@@ -1,7 +1,3 @@
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-/>
 <div class="container">
   <div class="row">
     <div
@@ -40,75 +36,14 @@
   <div class="row">
     <div class="col">
       <h1>{{ tickerTitle }}</h1>
-      <div style="font-size: 0.5vw">
-        <i
-          (click)="toggleStar()"
-          class="fa fa-5x"
-          style="color: yellow"
-          [class.fa-star]="inWatchlist"
-        ></i>
-        <i
-          (click)="toggleStar()"
-          class="fa fa-5x"
-          [class.fa-star-o]="!inWatchlist"
-        ></i>
-      </div>
+      <app-star [ticker]="ticker"></app-star>
       <p style="float: none">{{ name }}</p>
       <p>{{ exchangeCode }}</p>
+      <app-buy [ticker]="ticker" [lastPrice]="lastPrice"></app-buy>
     </div>
-    <ng-template #content let-modal>
-      <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
-        <button
-          type="button"
-          class="close"
-          aria-label="Close"
-          (click)="modal.dismiss('Cross click')"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="dateOfBirth">Date of birth</label>
-            <div class="input-group">
-              <input
-                id="dateOfBirth"
-                class="form-control"
-                placeholder="yyyy-mm-dd"
-                name="dp"
-                ngbDatepicker
-                #dp="ngbDatepicker"
-              />
-              <div class="input-group-append">
-                <button
-                  class="btn btn-outline-secondary calendar"
-                  (click)="dp.toggle()"
-                  type="button"
-                ></button>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-outline-dark"
-          (click)="modal.close('Save click')"
-        >
-          Save
-        </button>
-      </div>
-    </ng-template>
-    <button class="btn btn-lg btn-outline-primary" (click)="open(content)">
-      Launch demo modal
-    </button>
-    <hr />
-    <pre>{{ closeResult }}</pre>
-
-    <div class="col">2 of 2</div>
+    <div class="col">
+      {{ lastPrice }} <br />{{ change }} ({{ changePercent }}%)
+    </div>
   </div>
   <div class="row">
     <mat-tab-group animationDuration="0ms">

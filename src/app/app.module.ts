@@ -22,6 +22,8 @@ import { DetailsComponent } from './components/details/details.component';
 import { NewsComponent } from './components/news/news.component';
 import { DetailschartComponent } from './components/detailschart/detailschart.component';
 import { ChartComponent } from './components/chart/chart.component';
+import { BuyComponent } from './components/buy/buy.component';
+import { StarComponent } from './components/star/star.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { ChartComponent } from './components/chart/chart.component';
     NewsComponent,
     DetailschartComponent,
     ChartComponent,
+    BuyComponent,
+    StarComponent,
   ],
   imports: [
     BrowserModule,

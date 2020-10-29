@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DetailsService } from '../../services/details.service';
-import * as $ from 'jquery';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-details',
@@ -31,65 +29,15 @@ export class DetailsComponent implements OnInit {
   changePercent: number;
   timeStamp: string;
   articles: [];
-  inWatchlist = false;
-  closeResult = '';
 
   constructor(
     private _Activatedroute: ActivatedRoute,
-    private detailsService: DetailsService,
-    private modalService: NgbModal
+    private detailsService: DetailsService
   ) {}
-
-  toggleStar() {
-    if (this.inWatchlist) {
-      localStorage.removeItem(this.ticker);
-      $('#add_to_list').hide();
-      this.inWatchlist = !this.inWatchlist;
-      $('#remove_from_list').show();
-      setTimeout(function () {
-        $('#remove_from_list').hide();
-      }, 5000);
-    } else {
-      localStorage.setItem(this.ticker, 'true');
-      $('#remove_from_list').hide();
-      this.inWatchlist = !this.inWatchlist;
-      $('#add_to_list').show();
-      setTimeout(function () {
-        $('#add_to_list').hide();
-      }, 5000);
-    }
-  }
-
-  open(content) {
-    this.modalService
-      .open(content, { ariaLabelledBy: 'modal-basic-title' })
-      .result.then(
-        (result) => {
-          this.closeResult = `Closed with: ${result}`;
-        },
-        (reason) => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        }
-      );
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
 
   ngOnInit(): void {
     this._Activatedroute.paramMap.subscribe((params) => {
       this.ticker = params.get('ticker');
-
-      if (localStorage.getItem(this.ticker)) {
-        this.inWatchlist = true;
-      }
 
       this.detailsService
         .getDescription(this.ticker)
@@ -125,9 +73,4 @@ export class DetailsComponent implements OnInit {
       });
     });
   }
-
-  // let watchlist = localStorage.getItem(this.ticker)
-  // if( === 'true'){
-
-  // }
 }

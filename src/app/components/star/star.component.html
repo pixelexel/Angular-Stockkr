@@ -1,0 +1,17 @@
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+<div style="font-size: 0.5vw">
+  <i
+    (click)="toggleStar()"
+    class="fa fa-5x"
+    style="color: yellow"
+    [class.fa-star]="inWatchlist"
+  ></i>
+  <i
+    (click)="toggleStar()"
+    class="fa fa-5x"
+    [class.fa-star-o]="!inWatchlist"
+  ></i>
+</div>
