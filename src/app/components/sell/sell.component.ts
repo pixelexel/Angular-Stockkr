@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl } from '@angular/forms';
 import * as $ from 'jquery';
@@ -10,7 +10,8 @@ import * as $ from 'jquery';
 })
 export class SellComponent implements OnInit {
   @Input() ticker: string;
-  @Input() lastPrice: number;
+  @Input() last: number;
+  @Output() notify: EventEmitter<string> = new EventEmitter<string>();
   total: number;
   current_quantity: number;
   current_total: number;
@@ -66,9 +67,12 @@ export class SellComponent implements OnInit {
               String(this.current_total)
             );
           }
-          this.quantityControl.setValue(this.current_quantity);
+          this.notify.emit(this.ticker);
+          this.quantityControl.setValue(0);
         },
-        (reason) => {}
+        (reason) => {
+          this.quantityControl.setValue(0);
+        }
       );
   }
 
@@ -77,18 +81,24 @@ export class SellComponent implements OnInit {
       this.current_quantity = Number(
         localStorage.getItem(this.ticker + '_quantity')
       );
-      this.quantityControl.setValue(this.current_quantity);
     }
+    console.log(this.last);
+    this.quantityControl.setValue(0);
     this.quantityControl.valueChanges.subscribe((value) => {
+      if (localStorage.getItem(this.ticker + '_quantity')) {
+        this.current_quantity = Number(
+          localStorage.getItem(this.ticker + '_quantity')
+        );
+      }
       if (value <= 0 || value > this.current_quantity) {
         if (value <= 0) {
           this.total = 0;
         } else {
-          this.total = value * this.lastPrice;
+          this.total = value * this.last;
         }
         $('#sell_form').prop('disabled', true);
       } else {
-        this.total = value * this.lastPrice;
+        this.total = value * this.last;
         $('#sell_form').removeClass('disabled');
         $('#sell_form').prop('disabled', false);
       }

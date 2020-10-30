@@ -1,6 +1,6 @@
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">{{ tickerTitle }}</h4>
+    <h4 class="modal-title" id="modal-basic-title">{{ ticker }}</h4>
     <button
       type="button"
       class="close"
@@ -13,7 +13,7 @@
   <div class="modal-body">
     <form id="form">
       <div class="form-group">
-        <p>Current Price: {{ lastPrice }}</p>
+        <p>Current Price: {{ last }}</p>
         <label for="quantity">Quantity</label>
         <div class="input-group">
           <input
@@ -33,7 +33,7 @@
     <button
       id="sell_form"
       type="button"
-      class="btn btn-danger disabled"
+      class="btn btn-success disabled"
       (click)="modal.close('Save click')"
       disabled
     >
@@ -41,4 +41,4 @@
     </button>
   </div>
 </ng-template>
-<button class="btn btn-success" (click)="open(content)">Sell</button>
+<button class="btn btn-danger" (click)="open(content)">Sell</button>

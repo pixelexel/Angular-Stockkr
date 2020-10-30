@@ -15,11 +15,11 @@ export class DetailsService {
 
   constructor(private http: HttpClient) {}
 
-  getDescription(query) {
-    return this.http.get(`${this.detailsUrl}${query}`);
+  getDescription(query): Observable<Stock> {
+    return this.http.get<Stock>(`${this.detailsUrl}${query}`);
   }
-  getLastPrice(query) {
-    return this.http.get(`${this.lastPriceUrl}${query}`);
+  getLastPrice(query): Observable<Stock> {
+    return this.http.get<Stock>(`${this.lastPriceUrl}${query}`);
   }
   getNews(query) {
     return this.http.get(`${this.newsUrl}${query}`);

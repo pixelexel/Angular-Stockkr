@@ -1,9 +1,26 @@
 export class Stock {
   ticker: string;
   name: string;
-  lastPrice: number;
+  last: number;
+  high: number;
+  low: number;
+  open: number;
+  mid: number;
+  askSize: number;
+  askPrize: number;
+  bidSize: number;
+  bidPrice: number;
+  volume: number;
+  prevClose: number;
+  timestamp: string;
   change: number;
   changePercent: number;
+  exchangeCode: string;
+  startDate: string;
+  description: string;
+  //portfolio
   my_quantity: number;
   my_total: number;
+  my_average: number;
+  my_change: number;
 }

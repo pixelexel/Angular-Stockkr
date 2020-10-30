@@ -29,23 +29,36 @@ export class PortfolioComponent implements OnInit {
     }
   }
 
-  closeCard(ticker) {
-    this.stockList = this.stockList.filter((stock) => stock.ticker !== ticker);
-    if (this.stockList.length === 0) {
-      this.emptyStockList = true;
-    }
-    this.portfolio_list = this.portfolio_list.filter(
-      (stockTicker) => stockTicker !== ticker
-    );
-    //remove from list
-    localStorage.setItem('portfolio_list', JSON.stringify(this.portfolio_list));
-    //remove specific ticker LS
-    localStorage.removeItem(ticker);
-  }
+  // closeCard(ticker) {
+  //   this.stockList = this.stockList.filter((stock) => stock.ticker !== ticker);
+  //   if (this.stockList.length === 0) {
+  //     this.emptyStockList = true;
+  //   }
+  //   this.portfolio_list = this.portfolio_list.filter(
+  //     (stockTicker) => stockTicker !== ticker
+  //   );
+  //   //remove from list
+  //   localStorage.setItem('portfolio_list', JSON.stringify(this.portfolio_list));
+  //   //remove specific ticker LS
+  //   localStorage.removeItem(ticker);
+  // }
 
-  getName(stock_info, stockTicker) {
+  addDetails(stock_info, stockTicker) {
     this.detailsService.getWatchlistName(stockTicker).subscribe((stock) => {
       stock_info.name = stock.name;
+      //Add remaining details for the card
+      if (localStorage.getItem(stockTicker + '_quantity')) {
+        stock_info.my_quantity = Number(
+          localStorage.getItem(stockTicker + '_quantity')
+        );
+
+        stock_info.my_total = Number(
+          localStorage.getItem(stockTicker + '_total')
+        );
+        stock_info.my_average = stock_info.my_total / stock_info.my_quantity;
+        stock_info.my_change = stock_info.my_average - stock_info.last;
+      }
+      //console.log(stock_info);
       this.stockList.push(stock_info);
     });
   }
@@ -54,7 +67,7 @@ export class PortfolioComponent implements OnInit {
     let stock_info: Stock;
     this.detailsService.getWatchlist(stockTicker).subscribe((stock) => {
       stock_info = stock[0];
-      this.getName(stock_info, stockTicker);
+      this.addDetails(stock_info, stockTicker);
     });
   }
 }

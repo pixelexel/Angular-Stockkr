@@ -1,0 +1,20 @@
+<a [routerLink]="['/details', stock.ticker]">
+  <div class="card-header">{{ stock.ticker }} {{ stock.name }}</div>
+</a>
+<div class="card-body">
+  <p class="card-text">
+    {{ stock.my_quantity }}
+  </p>
+</div>
+<div class="card-footer text-muted">
+  <app-buy
+    [ticker]="stock.ticker"
+    [last]="stock.last"
+    (notify)="updatePortfolio($event)"
+  ></app-buy
+  ><app-sell
+    [ticker]="stock.ticker"
+    [last]="stock.last"
+    (notify)="updatePortfolio($event)"
+  ></app-sell>
+</div>

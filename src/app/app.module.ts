@@ -25,6 +25,7 @@ import { ChartComponent } from './components/chart/chart.component';
 import { BuyComponent } from './components/buy/buy.component';
 import { StarComponent } from './components/star/star.component';
 import { SellComponent } from './components/sell/sell.component';
+import { PortfolioCardComponent } from './components/portfolio-card/portfolio-card.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { SellComponent } from './components/sell/sell.component';
     BuyComponent,
     StarComponent,
     SellComponent,
+    PortfolioCardComponent,
   ],
   imports: [
     BrowserModule,

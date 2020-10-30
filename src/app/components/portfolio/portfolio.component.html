@@ -10,15 +10,7 @@
         Currently you don't have any stock.
       </div>
       <div class="card text-center" *ngFor="let stock of stockList">
-        <a [routerLink]="['/details', stock.ticker]">
-          <div class="card-header">{{ stock.ticker }} {{ stock.name }}</div>
-        </a>
-        <div class="card-body">
-          <p class="card-text">
-            {{ stock.my_quantity }}
-          </p>
-        </div>
-        <div class="card-footer text-muted"><app-buy></app-buy></div>
+        <app-portfolio-card [stock]="stock"></app-portfolio-card>
       </div>
     </div>
   </div>

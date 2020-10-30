@@ -6,7 +6,7 @@
       class="alert alert-danger alert-dismissible"
       role="alert"
     >
-      {{ tickerTitle }} removed from Watchlist.
+      {{ ticker }} removed from Watchlist.
       <button
         type="button"
         class="close"
@@ -22,7 +22,23 @@
       class="alert alert-success alert-dismissible"
       role="alert"
     >
-      {{ tickerTitle }} added to Watchlist.
+      {{ ticker }} added to Watchlist.
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div
+      id="bought"
+      style="display: none"
+      class="alert alert-success alert-dismissible"
+      role="alert"
+    >
+      {{ ticker }} bought successfully!
       <button
         type="button"
         class="close"
@@ -35,20 +51,24 @@
   </div>
   <div class="row">
     <div class="col">
-      <h1>{{ tickerTitle }}</h1>
+      <h1>{{ ticker }}</h1>
       <app-star [ticker]="ticker"></app-star>
-      <p style="float: none">{{ name }}</p>
-      <p>{{ exchangeCode }}</p>
-      <app-buy [ticker]="ticker" [lastPrice]="lastPrice"></app-buy>
+      <p style="float: none">{{ stock.name }}</p>
+      <p>{{ stock.exchangeCode }}</p>
+      <app-buy
+        [ticker]="stock.ticker"
+        [last]="stock.last"
+        (notify)="showBoughtBanner($event)"
+      ></app-buy>
     </div>
     <div class="col">
-      {{ lastPrice }} <br />{{ change }} ({{ changePercent }}%)
+      {{ stock.last }} <br />{{ stock.change }} ({{ stock.changePercent }}%)
     </div>
   </div>
   <div class="row">
     <mat-tab-group animationDuration="0ms">
       <mat-tab label="First"
-        >{{ startDate }} {{ description }}
+        >{{ stock.startDate }} {{ stock.description }}
         <!-- <app-detailschart [ticker]="ticker"></app-detailschart> -->
       </mat-tab>
       <mat-tab label="Second">
@@ -57,14 +77,18 @@
             <div class="col">
               <table style="float: left">
                 <tr *ngFor="let article of articles; index as i">
-                  <td *ngIf="i % 2">{{ article.title }} {{ i }}</td>
+                  <td *ngIf="i % 2">
+                    <app-news [article]="article"></app-news>
+                  </td>
                 </tr>
               </table>
             </div>
             <div class="col">
               <table>
                 <tr *ngFor="let article of articles; index as i">
-                  <td *ngIf="!(i % 2)">{{ article.title }} {{ i }}</td>
+                  <td *ngIf="!(i % 2)">
+                    <app-news [article]="article"></app-news>
+                  </td>
                 </tr>
               </table>
             </div>
