@@ -24,6 +24,7 @@ import { DetailschartComponent } from './components/detailschart/detailschart.co
 import { ChartComponent } from './components/chart/chart.component';
 import { BuyComponent } from './components/buy/buy.component';
 import { StarComponent } from './components/star/star.component';
+import { SellComponent } from './components/sell/sell.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { StarComponent } from './components/star/star.component';
     ChartComponent,
     BuyComponent,
     StarComponent,
+    SellComponent,
   ],
   imports: [
     BrowserModule,

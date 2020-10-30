@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { DetailsService } from '../../services/details.service';
-import * as $ from 'jquery';
 import { Stock } from '../../model/Stock';
 
 @Component({
@@ -11,25 +10,36 @@ import { Stock } from '../../model/Stock';
 export class WatchlistComponent implements OnInit {
   watchlist = new Array();
   stockList: Array<Stock> = [];
+  emptyStockList = false;
 
   constructor(private detailsService: DetailsService) {}
 
   ngOnInit(): void {
+    //localStorage.removeItem('watchlist');
     if (
       localStorage.getItem('watchlist') !== 'undefined' &&
       localStorage.getItem('watchlist') !== null
     ) {
       this.watchlist = JSON.parse(localStorage.getItem('watchlist'));
+      if (this.watchlist.length === 0) {
+        this.emptyStockList = true;
+      }
       this.watchlist.forEach((stockTicker) => this.createCardData(stockTicker));
-      console.log(this.stockList);
     }
   }
 
   closeCard(ticker) {
-    console.log('yes');
-    this.stockList.filter((stock) => stock.ticker !== ticker);
-    this.watchlist.filter((stockTicker) => stockTicker !== ticker);
+    this.stockList = this.stockList.filter((stock) => stock.ticker !== ticker);
+    if (this.stockList.length === 0) {
+      this.emptyStockList = true;
+    }
+    this.watchlist = this.watchlist.filter(
+      (stockTicker) => stockTicker !== ticker
+    );
+    //remove from list
     localStorage.setItem('watchlist', JSON.stringify(this.watchlist));
+    //remove specific ticker LS
+    localStorage.removeItem(ticker);
   }
 
   getName(stock_info, stockTicker) {

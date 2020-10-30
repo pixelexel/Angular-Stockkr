@@ -15,8 +15,23 @@ export class BuyComponent implements OnInit {
   current_quantity: number;
   current_total: number;
   quantityControl = new FormControl();
+  portfolio_list = new Array();
 
   constructor(private modalService: NgbModal) {}
+
+  managePortfolioList() {
+    //get portfolio if exists
+    if (
+      localStorage.getItem('portfolio_list') !== 'undefined' &&
+      localStorage.getItem('portfolio_list') !== null
+    ) {
+      this.portfolio_list = JSON.parse(localStorage.getItem('portfolio_list'));
+    }
+    //add to portfolio
+    this.portfolio_list.push(this.ticker);
+    //store portfolio_list in LS
+    localStorage.setItem('portfolio_list', JSON.stringify(this.portfolio_list));
+  }
 
   open(content) {
     this.modalService
@@ -45,8 +60,11 @@ export class BuyComponent implements OnInit {
             this.ticker + '_total',
             String(this.current_total)
           );
-          console.log(localStorage.getItem(this.ticker + '_quantity'));
-          console.log(localStorage.getItem(this.ticker + '_total'));
+
+          this.managePortfolioList();
+
+          //console.log(localStorage.getItem(this.ticker + '_quantity'));
+          //console.log(localStorage.getItem(this.ticker + '_total'));
           this.quantityControl.setValue(0);
         },
         (reason) => {}

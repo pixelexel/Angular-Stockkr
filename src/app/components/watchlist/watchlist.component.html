@@ -2,6 +2,13 @@
   <p>My Watchlist</p>
   <div class="row">
     <div class="col">
+      <div
+        class="alert alert-warning"
+        *ngIf="emptyStockList === true"
+        role="alert"
+      >
+        Currently you don't have any stock in your watchlist.
+      </div>
       <div class="card" *ngFor="let stock of stockList">
         <div *ngIf="stock.ticker">
           <div
@@ -21,11 +28,7 @@
             >
           </div>
           <a [routerLink]="['/details', stock.ticker]">
-            <div
-              class="card-body"
-              (click)="linkToDetails(stock.ticker)"
-              style="float: left; display: inline"
-            >
+            <div class="card-body" style="float: left; display: inline">
               {{ stock.ticker }}
             </div>
           </a>
