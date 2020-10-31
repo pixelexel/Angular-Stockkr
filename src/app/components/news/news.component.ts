@@ -20,5 +20,16 @@ export class NewsComponent implements OnInit {
       );
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.article['twitter_link'] =
+      'https://twitter.com/intent/tweet?text=' +
+      this.article.title +
+      ' ' +
+      this.article.url;
+
+    this.article['fb_link'] =
+      'https://www.facebook.com/sharer/sharer.php?u=' +
+      this.article.url +
+      '&amp;src=sdkpreparse';
+  }
 }
