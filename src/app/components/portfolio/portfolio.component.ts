@@ -22,10 +22,19 @@ export class PortfolioComponent implements OnInit {
       this.portfolio_list = JSON.parse(localStorage.getItem('portfolio_list'));
       if (this.portfolio_list.length === 0) {
         this.emptyStockList = true;
+      } else {
+        this.getStockData(this.portfolio_list);
       }
-      this.portfolio_list.forEach((stockTicker) =>
-        this.createCardData(stockTicker)
-      );
+    }
+  }
+
+  updatePortfolio() {
+    this.portfolio_list = JSON.parse(localStorage.getItem('portfolio_list'));
+    if (this.portfolio_list.length === 0) {
+      this.emptyStockList = true;
+      this.stockList = [];
+    } else {
+      this.getStockData(this.portfolio_list);
     }
   }
 
@@ -43,31 +52,23 @@ export class PortfolioComponent implements OnInit {
   //   localStorage.removeItem(ticker);
   // }
 
-  addDetails(stock_info, stockTicker) {
-    this.detailsService.getWatchlistName(stockTicker).subscribe((stock) => {
-      stock_info.name = stock.name;
+  getStockData(portfolio) {
+    this.detailsService.getStockList(portfolio).subscribe((stocks) => {
       //Add remaining details for the card
-      if (localStorage.getItem(stockTicker + '_quantity')) {
-        stock_info.my_quantity = Number(
-          localStorage.getItem(stockTicker + '_quantity')
-        );
+      stocks.forEach((stock) => {
+        if (localStorage.getItem(stock.ticker + '_quantity')) {
+          stock.my_quantity = Number(
+            localStorage.getItem(stock.ticker + '_quantity')
+          );
 
-        stock_info.my_total = Number(
-          localStorage.getItem(stockTicker + '_total')
-        );
-        stock_info.my_average = stock_info.my_total / stock_info.my_quantity;
-        stock_info.my_change = stock_info.my_average - stock_info.last;
-      }
-      //console.log(stock_info);
-      this.stockList.push(stock_info);
-    });
-  }
-
-  createCardData(stockTicker) {
-    let stock_info: Stock;
-    this.detailsService.getWatchlist(stockTicker).subscribe((stock) => {
-      stock_info = stock[0];
-      this.addDetails(stock_info, stockTicker);
+          stock.my_total = Number(
+            localStorage.getItem(stock.ticker + '_total')
+          );
+          stock.my_average = stock.my_total / stock.my_quantity;
+          stock.my_change = stock.my_average - stock.last;
+        }
+      });
+      this.stockList = stocks;
     });
   }
 }

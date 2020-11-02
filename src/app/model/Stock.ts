@@ -18,6 +18,7 @@ export class Stock {
   exchangeCode: string;
   startDate: string;
   description: string;
+  currentDate: string;
   //portfolio
   my_quantity: number;
   my_total: number;

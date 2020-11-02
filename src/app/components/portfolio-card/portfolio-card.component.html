@@ -10,11 +10,11 @@
   <app-buy
     [ticker]="stock.ticker"
     [last]="stock.last"
-    (notify)="updatePortfolio($event)"
+    (notify)="updatePortfolio()"
   ></app-buy
   ><app-sell
     [ticker]="stock.ticker"
     [last]="stock.last"
-    (notify)="updatePortfolio($event)"
+    (notify)="updatePortfolio()"
   ></app-sell>
 </div>

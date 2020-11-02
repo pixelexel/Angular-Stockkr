@@ -64,7 +64,7 @@ export class BuyComponent implements OnInit {
             String(this.current_total)
           );
 
-          this.notify.emit(this.ticker);
+          this.notify.emit(null);
           this.quantityControl.setValue(0);
         },
         (reason) => {

@@ -11,7 +11,7 @@ import * as $ from 'jquery';
 export class SellComponent implements OnInit {
   @Input() ticker: string;
   @Input() last: number;
-  @Output() notify: EventEmitter<string> = new EventEmitter<string>();
+  @Output() notify: EventEmitter<any> = new EventEmitter();
   total: number;
   current_quantity: number;
   current_total: number;
@@ -67,7 +67,7 @@ export class SellComponent implements OnInit {
               String(this.current_total)
             );
           }
-          this.notify.emit(this.ticker);
+          this.notify.emit(null);
           this.quantityControl.setValue(0);
         },
         (reason) => {

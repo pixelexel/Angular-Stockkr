@@ -10,12 +10,12 @@ import { DetailsService } from '../../services/details.service';
 })
 export class DetailschartComponent implements OnInit {
   @Input() ticker: string;
+  @Input() timestamp: string;
 
   Highcharts: typeof Highcharts = Highcharts;
   datePrice = [];
   updateFlag = false;
   marketColor = '#297f00';
-  today = new Date().toISOString().slice(0, 10);
 
   chartOptions: Options = {
     series: [
@@ -29,12 +29,8 @@ export class DetailschartComponent implements OnInit {
   constructor(private detailsService: DetailsService) {}
 
   ngOnInit(): void {
-    console.log(this.today);
-    //MARKET CLOSE => check prev day after day change
-    //Check day before for when market is closed
-    //LAST TIMESTAMP FROM 4.1.2 for holidays
     this.detailsService
-      .getCharts1(this.ticker, this.today)
+      .getCharts1(this.ticker, this.timestamp)
       .subscribe((data) => {
         let chartData = Object.values(data);
         //console.log(chartData);
@@ -42,8 +38,9 @@ export class DetailschartComponent implements OnInit {
           //DAYLIGHT!
           //convert to pst
           var date = new Date(chartData[i].date);
+          //console.log('chart: ', date);
           var utcDate = new Date(date.toUTCString());
-          utcDate.setHours(utcDate.getHours() - 7);
+          utcDate.setHours(utcDate.getHours() - 8);
           var pst = new Date(utcDate);
           var result = pst.getTime();
           this.datePrice.push([result, chartData[i].close]);

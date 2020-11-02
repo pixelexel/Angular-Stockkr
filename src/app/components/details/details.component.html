@@ -62,14 +62,23 @@
       ></app-buy>
     </div>
     <div class="col">
-      {{ stock.last }} <br />{{ stock.change }} ({{ stock.changePercent }}%)
+      <div *ngIf="market">Market is Open</div>
+      <div *ngIf="!market">{{ market_closed }}</div>
+    </div>
+    <div class="col">
+      {{ stock.last }} <br />{{ stock.change }} ({{
+        stock.changePercent
+      }}%)<br />{{ stock.currentDate }}
     </div>
   </div>
   <div class="row">
     <mat-tab-group animationDuration="0ms">
       <mat-tab label="First"
         >{{ stock.startDate }} {{ stock.description }}
-        <!-- <app-detailschart [ticker]="ticker"></app-detailschart> -->
+        <app-detailschart
+          [ticker]="ticker"
+          [timestamp]="stock.timestamp"
+        ></app-detailschart>
       </mat-tab>
       <mat-tab label="Second">
         <div class="news_tab">

@@ -75,7 +75,7 @@ export class ChartComponent implements OnInit {
           //convert to pst
           var date = new Date(chartData[i].date);
           var utcDate = new Date(date.toUTCString());
-          utcDate.setHours(utcDate.getHours() - 7);
+          utcDate.setHours(utcDate.getHours() - 8);
           var pst = new Date(utcDate);
           var result_date = pst.getTime();
 

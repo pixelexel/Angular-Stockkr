@@ -23,37 +23,31 @@ export class WatchlistComponent implements OnInit {
       this.watchlist = JSON.parse(localStorage.getItem('watchlist'));
       if (this.watchlist.length === 0) {
         this.emptyStockList = true;
+      } else {
+        this.getStockData(this.watchlist);
       }
-      this.watchlist.forEach((stockTicker) => this.createCardData(stockTicker));
     }
   }
 
   closeCard(ticker) {
     this.stockList = this.stockList.filter((stock) => stock.ticker !== ticker);
-    if (this.stockList.length === 0) {
-      this.emptyStockList = true;
-    }
     this.watchlist = this.watchlist.filter(
       (stockTicker) => stockTicker !== ticker
     );
-    //remove from list
+    if (this.stockList.length === 0) {
+      this.emptyStockList = true;
+    } else {
+      this.getStockData(this.watchlist);
+    }
+
+    //LS
     localStorage.setItem('watchlist', JSON.stringify(this.watchlist));
-    //remove specific ticker LS
     localStorage.removeItem(ticker);
   }
 
-  getName(stock_info, stockTicker) {
-    this.detailsService.getWatchlistName(stockTicker).subscribe((stock) => {
-      stock_info.name = stock.name;
-      this.stockList.push(stock_info);
-    });
-  }
-
-  createCardData(stockTicker) {
-    let stock_info: Stock;
-    this.detailsService.getWatchlist(stockTicker).subscribe((stock) => {
-      stock_info = stock[0];
-      this.getName(stock_info, stockTicker);
+  getStockData(watchlist) {
+    this.detailsService.getStockList(watchlist).subscribe((stocks) => {
+      this.stockList = stocks;
     });
   }
 }

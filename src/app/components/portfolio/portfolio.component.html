@@ -10,7 +10,10 @@
         Currently you don't have any stock.
       </div>
       <div class="card text-center" *ngFor="let stock of stockList">
-        <app-portfolio-card [stock]="stock"></app-portfolio-card>
+        <app-portfolio-card
+          [stock]="stock"
+          (notify)="updatePortfolio($event)"
+        ></app-portfolio-card>
       </div>
     </div>
   </div>

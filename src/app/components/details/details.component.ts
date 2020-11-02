@@ -13,31 +13,13 @@ export class DetailsComponent implements OnInit {
   ticker: string;
   stock: Stock;
   articles: [];
+  market: boolean = false;
+  market_closed: string;
 
   constructor(
     private _Activatedroute: ActivatedRoute,
     private detailsService: DetailsService
   ) {}
-
-  ngOnInit(): void {
-    this._Activatedroute.paramMap.subscribe((params) => {
-      this.ticker = params.get('ticker');
-
-      this.detailsService.getLastPrice(this.ticker).subscribe((data) => {
-        this.stock = data[0];
-        this.stock.change = this.stock.last - this.stock.prevClose;
-        this.stock.changePercent =
-          (this.stock.change * 100) / this.stock.prevClose;
-        this.getDescription();
-        //console.log(this.stock);
-      });
-
-      this.detailsService.getNews(this.ticker).subscribe((news) => {
-        this.articles = news['articles'];
-        console.log(this.articles);
-      });
-    });
-  }
 
   showBoughtBanner(ticker: string) {
     $('#bought').show();
@@ -46,14 +28,61 @@ export class DetailsComponent implements OnInit {
     }, 5000);
   }
 
-  getDescription() {
-    this.detailsService.getDescription(this.ticker).subscribe((description) => {
-      if (description) {
-        this.stock.name = description['name'];
-        this.stock.exchangeCode = description['exchangeCode'];
-        this.stock.description = description['description'];
-        this.stock.startDate = description['startDate'];
+  ngOnInit(): void {
+    this._Activatedroute.paramMap.subscribe((params) => {
+      this.ticker = params.get('ticker');
+      this.getStockDetails(this.ticker);
+
+      this.detailsService.getNews(this.ticker).subscribe((news) => {
+        this.articles = news['articles'];
+        //console.log(this.articles);
+      });
+    });
+  }
+
+  currentTime() {
+    var current_date = new Date();
+    var formatted =
+      current_date.getFullYear() +
+      '-' +
+      ('0' + String(current_date.getMonth() + 1)).slice(-2) +
+      '-' +
+      ('0' + current_date.getDate()).slice(-2) +
+      ' ' +
+      ('0' + current_date.getHours()).slice(-2) +
+      ':' +
+      ('0' + current_date.getMinutes()).slice(-2) +
+      ':' +
+      ('0' + current_date.getSeconds()).slice(-2);
+    return formatted;
+  }
+
+  getStockDetails(ticker) {
+    this.detailsService.getStockDetails(ticker).subscribe((stockDetails) => {
+      stockDetails.change = stockDetails.last - stockDetails.prevClose;
+      stockDetails.changePercent =
+        (stockDetails.change * 100) / stockDetails.prevClose;
+      stockDetails.currentDate = this.currentTime();
+      this.stock = stockDetails;
+      var timestamp = new Date(this.stock.timestamp).getTime();
+      var current_time = new Date().getTime();
+      if (Math.abs(current_time - timestamp) < 60000) {
+        this.market = true;
+      } else {
+        this.market_closed =
+          'Market Closed on ' + this.stock.timestamp.slice(0, 10) + ' 13:00:00';
       }
     });
   }
 }
+
+// var time = this.stock.timestamp.slice(11, 16);
+// var hours = parseInt(time.slice(0, 2));
+// var minutes = parseInt(time.slice(3, 5));
+// console.log(hours, minutes);
+// if (hours > 9 && hours < 16) {
+//   this.market = true;
+// }
+// if (hours === 9 && minutes >= 30) {
+//   this.market = true;
+// }
