@@ -1,39 +1,42 @@
 <div class="container">
   <p>My Watchlist</p>
-  <div class="row">
-    <div class="col">
-      <div
-        class="alert alert-warning"
-        *ngIf="emptyStockList === true"
-        role="alert"
-      >
-        Currently you don't have any stock in your watchlist.
-      </div>
-      <div class="card" *ngFor="let stock of stockList">
-        <div *ngIf="stock.ticker">
-          <div
-            class="close"
-            aria-label="Close"
-            (click)="closeCard(stock.ticker)"
-          >
-            <span
-              aria-hidden="true"
-              style="
-                float: right;
-                margin-right: 0.3em;
-                font-size: 1em;
-                cursor: pointer;
-              "
-              >&times;</span
+  <mat-spinner *ngIf="loading"></mat-spinner>
+  <ng-container *ngIf="!loading"
+    ><div class="row">
+      <div class="col">
+        <div
+          class="alert alert-warning"
+          *ngIf="emptyStockList === true"
+          role="alert"
+        >
+          Currently you don't have any stock in your watchlist.
+        </div>
+        <div class="card" *ngFor="let stock of stockList">
+          <div *ngIf="stock.ticker">
+            <div
+              class="close"
+              aria-label="Close"
+              (click)="closeCard(stock.ticker)"
             >
-          </div>
-          <a [routerLink]="['/details', stock.ticker]">
-            <div class="card-body" style="float: left; display: inline">
-              {{ stock.ticker }}
+              <span
+                aria-hidden="true"
+                style="
+                  float: right;
+                  margin-right: 0.3em;
+                  font-size: 1em;
+                  cursor: pointer;
+                "
+                >&times;</span
+              >
             </div>
-          </a>
+            <a [routerLink]="['/details', stock.ticker]">
+              <div class="card-body" style="float: left; display: inline">
+                {{ stock.ticker }}
+              </div>
+            </a>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
+    </div></ng-container
+  >
 </div>

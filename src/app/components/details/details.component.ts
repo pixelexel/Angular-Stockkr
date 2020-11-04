@@ -15,6 +15,7 @@ export class DetailsComponent implements OnInit {
   articles: [];
   market: boolean = false;
   market_closed: string;
+  loading: boolean = true;
 
   constructor(
     private _Activatedroute: ActivatedRoute,
@@ -31,7 +32,7 @@ export class DetailsComponent implements OnInit {
   ngOnInit(): void {
     this._Activatedroute.paramMap.subscribe((params) => {
       this.ticker = params.get('ticker');
-      this.getStockDetails(this.ticker);
+      this.getFirstStockDetails(this.ticker);
 
       this.detailsService.getNews(this.ticker).subscribe((news) => {
         this.articles = news['articles'];
@@ -69,10 +70,37 @@ export class DetailsComponent implements OnInit {
       if (Math.abs(current_time - timestamp) < 60000) {
         this.market = true;
       } else {
+        this.market = false;
         this.market_closed =
           'Market Closed on ' + this.stock.timestamp.slice(0, 10) + ' 13:00:00';
       }
     });
+  }
+
+  getFirstStockDetails(ticker) {
+    this.detailsService
+      .getFirstStockDetails(ticker)
+      .subscribe((stockDetails) => {
+        stockDetails.change = stockDetails.last - stockDetails.prevClose;
+        stockDetails.changePercent =
+          (stockDetails.change * 100) / stockDetails.prevClose;
+        stockDetails.currentDate = this.currentTime();
+        this.stock = stockDetails;
+        var timestamp = new Date(this.stock.timestamp).getTime();
+        var current_time = new Date().getTime();
+        if (Math.abs(current_time - timestamp) < 60000) {
+          this.market = true;
+          this.loading = false;
+          this.getStockDetails(ticker);
+        } else {
+          this.market = false;
+          this.market_closed =
+            'Market Closed on ' +
+            this.stock.timestamp.slice(0, 10) +
+            ' 13:00:00';
+          this.loading = false;
+        }
+      });
   }
 }
 

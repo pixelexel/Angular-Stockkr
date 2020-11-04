@@ -11,6 +11,7 @@ export class WatchlistComponent implements OnInit {
   watchlist = new Array();
   stockList: Array<Stock> = [];
   emptyStockList = false;
+  loading: boolean = true;
 
   constructor(private detailsService: DetailsService) {}
 
@@ -48,6 +49,7 @@ export class WatchlistComponent implements OnInit {
   getStockData(watchlist) {
     this.detailsService.getStockList(watchlist).subscribe((stocks) => {
       this.stockList = stocks;
+      this.loading = false;
     });
   }
 }

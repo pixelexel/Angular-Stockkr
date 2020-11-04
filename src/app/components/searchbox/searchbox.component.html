@@ -1,40 +1,29 @@
-<!-- <link
+<link
   rel="stylesheet"
-  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css"
-  integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd"
-  crossorigin="anonymous"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
 />
-<script src="https://use.fontawesome.com/f4737361cc.js"></script> -->
-
-<div>
-  <form class="example-form">
-    <mat-form-field class="example-full-width">
-      <!-- <div class="input-group">
+<div class="container">
+  <div class="row title justify-content-center align-items-center">
+    Stock Search
+  </div>
+  <div class="row">
+    <form>
+      <div class="search-box">
         <input
-          class="form-control py-2 rounded-pill mr-1 pr-5"
-          placeholder="Enter stock name"
           type="text"
-          value=""
+          placeholder="Enter stock name"
+          aria-label="Number"
+          matInput
           [formControl]="myControl"
           [matAutocomplete]="auto"
-          matInput
+          [(ngModel)]="query"
         />
-        <span class="input-group-append">
-          <button class="btn rounded-pill border-0 ml-n5" type="button">
-            <i class="fa fa-search"></i>
-          </button>
-        </span>
-      </div> -->
-      <input
-        type="text"
-        placeholder="Enter stock name"
-        aria-label="Number"
-        matInput
-        [formControl]="myControl"
-        [matAutocomplete]="auto"
-        style="border-radius: 30px"
-      />
-      <!-- <a [routerLink]="['/Product', product.productID]">{{product.name}} </a> -->
+
+        <button type="submit" (click)="loadDetails()">
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </button>
+      </div>
+
       <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
         <mat-option *ngIf="isLoading" class="is-loading"
           ><mat-spinner diameter="20"></mat-spinner
@@ -46,40 +35,6 @@
           </mat-option>
         </ng-container>
       </mat-autocomplete>
-    </mat-form-field>
-  </form>
+    </form>
+  </div>
 </div>
-
-<!-- https://getbootstrap.com/docs/4.0/components/input-group/ -->
-<!-- input group append search -->
-
-<!-- <div class="input-group">
-  <input class="form-control py-2 border-right-0 border" type="search" value="search" id="example-search-input">
-  <span class="input-group-append">
-      <div class="input-group-text bg-transparent"><i class="fa fa-search"></i></div>
-  </span>
-</div> -->
-
-<!-- <form class="example-form">
-    <mat-form-field class="example-full-width">
-      <input
-        type="text"
-        placeholder="Enter stock name"
-        aria-label="Number"
-        matInput
-        [formControl]="myControl"
-        [matAutocomplete]="auto"
-      />
-      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-        <mat-option *ngIf="isLoading" class="is-loading"
-          ><mat-spinner diameter="50"></mat-spinner
-        ></mat-option>
-        <ng-container *ngIf="!isLoading">
-          <mat-option *ngFor="let stock of filteredStocks" [value]="stock">
-            <span>{{ stock.ticker }}</span>
-            <small> | {{ stock.name }}</small>
-          </mat-option>
-        </ng-container>
-      </mat-autocomplete>
-    </mat-form-field>
-  </form> -->

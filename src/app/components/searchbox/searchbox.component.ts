@@ -1,47 +1,51 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl} from '@angular/forms';
-import {debounceTime, tap, finalize, switchMap} from 'rxjs/operators';
-import { SearchService} from '../../services/search.service'
+import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { debounceTime, tap, finalize, switchMap } from 'rxjs/operators';
+import { DetailsService } from '../../services/details.service';
 import { Stock } from '../../model/Stock';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-searchbox',
   templateUrl: './searchbox.component.html',
-  styleUrls: ['./searchbox.component.css']
+  styleUrls: ['./searchbox.component.css'],
 })
-
 export class SearchboxComponent implements OnInit {
-
   myControl = new FormControl();
   filteredOptions: Stock[];
   isLoading = false;
+  query: Stock;
 
-  constructor(private searchService: SearchService) {
-  }
+  constructor(private detailsService: DetailsService, private router: Router) {}
 
   ngOnInit() {
     this.myControl.valueChanges
-    .pipe(
-      debounceTime(300),
-      tap((value) => {
-        if(value){
-          this.isLoading = true;
-        }
-        this.filteredOptions = [];
-      }),
-      switchMap(value => this.searchService.getStocks(value)
       .pipe(
-        finalize(() => this.isLoading = false),
+        debounceTime(300),
+        tap((value) => {
+          if (value) {
+            this.isLoading = true;
+          }
+          this.filteredOptions = [];
+        }),
+        switchMap((value) =>
+          this.detailsService
+            .getStocks(value)
+            .pipe(finalize(() => (this.isLoading = false)))
         )
       )
-    )
-    .subscribe(stocks => this.filteredOptions = stocks);
+      .subscribe((stocks) => (this.filteredOptions = stocks));
   }
 
   displayFn(stock: Stock) {
-    if (stock) { return stock.ticker; }
+    if (stock) {
+      return stock.ticker;
+    }
   }
-  
+
+  loadDetails() {
+    this.router.navigate(['/details', this.query.ticker]);
+  }
 
   // private getOptions(value: string) {
   //   if(value){
@@ -50,13 +54,8 @@ export class SearchboxComponent implements OnInit {
   //       console.log(this.filteredOptions)
   //     });
   //   }
-  //   
+  //
 }
-  
-
-  
-
-
 
 // ngOnInit() {
 //   this.myControl.valueChanges
@@ -72,7 +71,6 @@ export class SearchboxComponent implements OnInit {
 //   .subscribe(stocks=> this.filteredOptions = stocks)
 // }
 
-
 // private getOptions(value: string) {
 //   // tap(()= > this.isLoading = true)
 //   if(value){
@@ -86,7 +84,6 @@ export class SearchboxComponent implements OnInit {
 //   return Stock[[]]
 //   // this.isLoading = false
 // }
-
 
 // export class SearchboxComponent implements OnInit {
 
@@ -105,7 +102,6 @@ export class SearchboxComponent implements OnInit {
 //       .subscribe(value= > this.getOptions(value))
 //   }
 
-
 //   private getOptions(value: string) {
 //       tap(()= > this.isLoading = true)
 //       if(value){
@@ -121,8 +117,6 @@ export class SearchboxComponent implements OnInit {
 
 // }
 
-
-
 // ngOnInit() {
 //   this.myControl.valueChanges
 //     .pipe(
@@ -135,7 +129,6 @@ export class SearchboxComponent implements OnInit {
 //     .subscribe(value => this.getOptions(value));
 //   this.isLoading = false;
 // }
-
 
 // private getOptions(value: string) {
 //   if(value){

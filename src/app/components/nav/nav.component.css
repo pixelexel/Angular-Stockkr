@@ -16,3 +16,8 @@
 .navbar-light .navbar-nav .nav-link {
   color: white;
 }
+
+a.hover:hover {
+  text-decoration: none;
+  color: white;
+}
