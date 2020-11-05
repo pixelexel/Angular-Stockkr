@@ -1,14 +1,12 @@
 <div class="container">
   <p>My Watchlist</p>
-  <mat-spinner *ngIf="loading"></mat-spinner>
+  <div class="row justify-content-center">
+    <mat-spinner [diameter]="50" *ngIf="loading"></mat-spinner>
+  </div>
   <ng-container *ngIf="!loading"
     ><div class="row">
       <div class="col">
-        <div
-          class="alert alert-warning"
-          *ngIf="emptyStockList === true"
-          role="alert"
-        >
+        <div class="alert alert-warning" *ngIf="emptyStockList" role="alert">
           Currently you don't have any stock in your watchlist.
         </div>
         <div class="card" *ngFor="let stock of stockList">

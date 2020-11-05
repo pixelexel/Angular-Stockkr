@@ -8,8 +8,9 @@ import { mergeMap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class DetailsService {
-  rootUrl: string = 'http://6th78tqqlpa.us-east-1.elasticbeanstalk.com/api';
-  // http://localhost:5000
+  rootUrl: string = 'http://localhost:8080/api';
+  // http://6th78tqqlpa.us-east-1.elasticbeanstalk.com
+  // http://localhost:8080
 
   autocompleteUrl: string = this.rootUrl + '/autocomplete?search=';
   detailsUrl: string = this.rootUrl + '/details?ticker=';

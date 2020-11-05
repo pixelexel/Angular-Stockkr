@@ -23,6 +23,7 @@ export class WatchlistComponent implements OnInit {
     ) {
       this.watchlist = JSON.parse(localStorage.getItem('watchlist'));
       if (this.watchlist.length === 0) {
+        this.loading = false;
         this.emptyStockList = true;
       } else {
         this.getStockData(this.watchlist);
@@ -48,6 +49,7 @@ export class WatchlistComponent implements OnInit {
 
   getStockData(watchlist) {
     this.detailsService.getStockList(watchlist).subscribe((stocks) => {
+      console.log('stocks');
       this.stockList = stocks;
       this.loading = false;
     });

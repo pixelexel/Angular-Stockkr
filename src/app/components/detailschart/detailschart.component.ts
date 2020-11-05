@@ -11,11 +11,12 @@ import { DetailsService } from '../../services/details.service';
 export class DetailschartComponent implements OnInit {
   @Input() ticker: string;
   @Input() timestamp: string;
+  @Input() color: string;
 
   Highcharts: typeof Highcharts = Highcharts;
   datePrice = [];
   updateFlag = false;
-  marketColor = '#297f00';
+  marketColor: string;
 
   chartOptions: Options = {
     series: [
@@ -29,6 +30,13 @@ export class DetailschartComponent implements OnInit {
   constructor(private detailsService: DetailsService) {}
 
   ngOnInit(): void {
+    if (this.color === 'g') {
+      this.marketColor = '#297f00';
+    } else if (this.color === 'r') {
+      this.marketColor = '#f31100';
+    } else {
+      this.marketColor = 'black';
+    }
     this.detailsService
       .getCharts1(this.ticker, this.timestamp)
       .subscribe((data) => {
@@ -67,17 +75,17 @@ export class DetailschartComponent implements OnInit {
         },
       ],
 
+      rangeSelector: {
+        enabled: false,
+        inputEnabled: false,
+      },
+
       navigator: {
         series: {
           fillOpacity: 1,
           color: this.marketColor,
         },
       },
-
-      // rangeSelector: {
-      //   enabled: false,
-      //   inputEnabled: false,
-      // },
 
       xAxis: {
         tickmarkPlacement: 'on',

@@ -1,13 +1,22 @@
-<mat-spinner *ngIf="loading"></mat-spinner>
+<div class="row justify-content-center">
+  <mat-spinner [diameter]="50" *ngIf="loading && !invalid_ticker"></mat-spinner>
+</div>
+
+<div class="container justify-content-center" *ngIf="invalid_ticker">
+  <div class="alert alert-danger" role="alert">
+    No results found. Please enter valid Ticker
+  </div>
+</div>
+
 <div class="container" *ngIf="!loading">
-  <div class="row">
+  <div class="row justify-content-center">
     <div
       id="remove_from_list"
       style="display: none"
       class="alert alert-danger alert-dismissible"
       role="alert"
     >
-      {{ ticker }} removed from Watchlist.
+      {{ stock.ticker }} removed from Watchlist.
       <button
         type="button"
         class="close"
@@ -23,7 +32,7 @@
       class="alert alert-success alert-dismissible"
       role="alert"
     >
-      {{ ticker }} added to Watchlist.
+      {{ stock.ticker }} added to Watchlist.
       <button
         type="button"
         class="close"
@@ -39,7 +48,7 @@
       class="alert alert-success alert-dismissible"
       role="alert"
     >
-      {{ ticker }} bought successfully!
+      {{ stock.ticker }} bought successfully!
       <button
         type="button"
         class="close"
@@ -50,26 +59,74 @@
       </button>
     </div>
   </div>
+  <!-- Top -->
   <div class="row">
     <div class="col">
-      <h1>{{ ticker }}</h1>
-      <app-star [ticker]="ticker"></app-star>
-      <p style="float: none">{{ stock.name }}</p>
+      <h1 style="float: left">{{ stock.ticker }} &nbsp;</h1>
+      <app-star [ticker]="stock.ticker"></app-star>
+    </div>
+    <div class="col" style="color:{{ marketColor }}">
+      {{ stock.last | number: "1.2-2" }}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <p style="text-align: left">{{ stock.name }}</p>
+    </div>
+    <div class="col" style="color:{{ marketColor }}">
+      <svg
+        width="1em"
+        height="1em"
+        viewBox="0 0 16 16"
+        class="bi bi-caret-down-fill"
+        fill="#f31100"
+        xmlns="http://www.w3.org/2000/svg"
+        *ngIf="color === 'r'"
+      >
+        <path
+          d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"
+        />
+      </svg>
+      <svg
+        width="1em"
+        height="1em"
+        viewBox="0 0 16 16"
+        class="bi bi-caret-up-fill"
+        fill="#297f00"
+        xmlns="http://www.w3.org/2000/svg"
+        *ngIf="color === 'g'"
+      >
+        <path
+          d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"
+        />
+      </svg>
+      {{ stock.change | number: "1.2-2" }} ({{
+        stock.changePercent | number: "1.2-2"
+      }}%)
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
       <p>{{ stock.exchangeCode }}</p>
-      <app-buy
-        [ticker]="stock.ticker"
-        [last]="stock.last"
-        (notify)="showBoughtBanner($event)"
-      ></app-buy>
     </div>
     <div class="col">
-      <div *ngIf="market">Market is Open</div>
-      <div *ngIf="!market">{{ market_closed }}</div>
+      <p>{{ stock.currentDate }}</p>
     </div>
-    <div class="col">
-      {{ stock.last }} <br />{{ stock.change }} ({{
-        stock.changePercent
-      }}%)<br />{{ stock.currentDate }}
+  </div>
+  <div class="row">
+    <app-buy
+      style="padding-left: 15px"
+      [ticker]="stock.ticker"
+      [last]="stock.last"
+      (notify)="showBoughtBanner($event)"
+    ></app-buy>
+  </div>
+  <div class="row justify-content-center mt-2">
+    <div *ngIf="market">
+      <p style="background-color: #d7edda">Market is Open</p>
+    </div>
+    <div *ngIf="!market">
+      <p style="background-color: #f5d7d9">{{ market_closed }}</p>
     </div>
   </div>
   <div class="row">
@@ -77,8 +134,9 @@
       <mat-tab label="First"
         >{{ stock.startDate }} {{ stock.description }}
         <app-detailschart
-          [ticker]="ticker"
+          [ticker]="stock.ticker"
           [timestamp]="stock.timestamp"
+          [color]="color"
         ></app-detailschart>
       </mat-tab>
       <mat-tab label="Second">

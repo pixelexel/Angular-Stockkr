@@ -1,60 +1,50 @@
-<!-- <ul ngbNav #nav="ngbNav" class="nav-tabs">
-    <li ngbNavItem>
-      <a ngbNavLink>First</a>
-      <ng-template ngbNavContent>First content</ng-template>
-    </li>
-    <li ngbNavItem>
-      <a ngbNavLink>Second</a>
-      <ng-template ngbNavContent>Second content</ng-template>
-    </li>
-  </ul>
-  <div [ngbNavOutlet]="nav"></div> -->
-
-<!-- #6f4efb -->
-<!-- fixed-top -->
-<!-- <div class="container"> -->
-<nav class="navbar navbar-expand-lg navbar-light">
-  <!-- <span class="navbar-brand mb-0 h1">Navbar</span> -->
-  <a class="navbar-brand" [routerLink]="['/']">Stock Search</a>
-  <button
-    class="navbar-toggler"
-    type="button"
-    data-toggle="collapse"
-    data-target="#navbarSupportedContent"
-    aria-controls="navbarSupportedContent"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
+<div class="nav-container">
+  <nav
+    class="navbar fixed-top sticky-top navbar-dark navbar-purple navbar-expand-lg"
   >
-    <span class="navbar-toggler-icon"></span>
-  </button>
+    <a class="navbar-brand" [routerLink]="['/']">Stock Search</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item active">
-        <a
-          class="nav-link"
-          [routerLink]="['/']"
-          routerLinkActive="router-link-active"
-          >Search</a
-        >
-      </li>
-      <li class="nav-item">
-        <a
-          class="nav-link"
-          [routerLink]="['/watchlist']"
-          routerLinkActive="router-link-active"
-          >Watchlist</a
-        >
-      </li>
-      <li class="nav-item">
-        <a
-          class="nav-link"
-          [routerLink]="['/portfolio']"
-          routerLinkActive="router-link-active"
-          >Portfolio</a
-        >
-      </li>
-    </ul>
-  </div>
-</nav>
-<!-- </div> -->
+    <div
+      class="collapse navbar-collapse text-right"
+      id="navbarSupportedContent"
+    >
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item search-nav active">
+          <a
+            class="nav-link"
+            [routerLink]="['/']"
+            routerLinkActive="router-link-active"
+            >Search</a
+          >
+        </li>
+        <li class="nav-item watchlist-nav">
+          <a
+            class="nav-link"
+            [routerLink]="['/watchlist']"
+            routerLinkActive="router-link-active"
+            >Watchlist</a
+          >
+        </li>
+        <li class="nav-item portfolio-nav">
+          <a
+            class="nav-link"
+            [routerLink]="['/portfolio']"
+            routerLinkActive="router-link-active"
+            >Portfolio</a
+          >
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>

@@ -11,6 +11,7 @@ export class PortfolioComponent implements OnInit {
   portfolio_list = new Array();
   stockList: Array<Stock> = [];
   emptyStockList = false;
+  loading = true;
 
   constructor(private detailsService: DetailsService) {}
 
@@ -21,6 +22,7 @@ export class PortfolioComponent implements OnInit {
     ) {
       this.portfolio_list = JSON.parse(localStorage.getItem('portfolio_list'));
       if (this.portfolio_list.length === 0) {
+        this.loading = false;
         this.emptyStockList = true;
       } else {
         this.getStockData(this.portfolio_list);
@@ -69,6 +71,7 @@ export class PortfolioComponent implements OnInit {
         }
       });
       this.stockList = stocks;
+      this.loading = false;
     });
   }
 }

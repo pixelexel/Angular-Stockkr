@@ -2,39 +2,42 @@
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
 />
-<div class="container">
-  <div class="row title justify-content-center align-items-center">
-    Stock Search
-  </div>
-  <div class="row">
-    <form>
-      <div class="search-box">
-        <input
-          type="text"
-          placeholder="Enter stock name"
-          aria-label="Number"
-          matInput
-          [formControl]="myControl"
-          [matAutocomplete]="auto"
-          [(ngModel)]="query"
-        />
+<div class="center">
+  <div class="container mt-5">
+    <div class="row title justify-content-center">
+      <div class="col-xs-6 mr-3">Stock</div>
+      <div class="col-xs-6">Search</div>
+    </div>
+    <div class="row mt-5 justify-content-center">
+      <form>
+        <div class="search-box">
+          <input
+            type="text"
+            placeholder="Enter stock name"
+            aria-label="Number"
+            matInput
+            [formControl]="myControl"
+            [matAutocomplete]="auto"
+            [(ngModel)]="query"
+          />
 
-        <button type="submit" (click)="loadDetails()">
-          <i class="fa fa-search" aria-hidden="true"></i>
-        </button>
-      </div>
+          <button type="submit" (click)="loadDetails()">
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </button>
+        </div>
 
-      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-        <mat-option *ngIf="isLoading" class="is-loading"
-          ><mat-spinner diameter="20"></mat-spinner
-        ></mat-option>
-        <ng-container *ngIf="!isLoading">
-          <mat-option *ngFor="let stock of filteredOptions" [value]="stock">
-            <span>{{ stock.ticker }}</span>
-            <small> | {{ stock.name }}</small>
-          </mat-option>
-        </ng-container>
-      </mat-autocomplete>
-    </form>
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngIf="isLoading" class="is-loading"
+            ><mat-spinner diameter="20"></mat-spinner
+          ></mat-option>
+          <ng-container *ngIf="!isLoading">
+            <mat-option *ngFor="let stock of filteredOptions" [value]="stock">
+              <span>{{ stock.ticker }}</span>
+              <small> | {{ stock.name }}</small>
+            </mat-option>
+          </ng-container>
+        </mat-autocomplete>
+      </form>
+    </div>
   </div>
 </div>
