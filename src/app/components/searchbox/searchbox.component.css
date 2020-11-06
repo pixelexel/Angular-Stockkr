@@ -18,8 +18,9 @@ input {
   border: 2px solid #6f4efb;
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
-  padding-left: 10px;
+  padding-left: 20px;
   height: 3em;
+  width: 12rem;
 }
 
 .fa-search {

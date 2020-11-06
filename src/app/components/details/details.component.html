@@ -125,7 +125,7 @@
       (notify)="showBoughtBanner($event)"
     ></app-buy>
   </div>
-  <div class="row justify-content-center mt-2 mb-3">
+  <div class="row justify-content-center mt-3 mb-3">
     <div *ngIf="market">
       <p style="background-color: #d7edda">Market is Open</p>
     </div>
@@ -138,16 +138,16 @@
   <mat-tab-group mat-stretch-tabs animationDuration="0ms">
     <mat-tab label="Summary">
       <div class="row summary">
-        <div class="col">
+        <div class="col-lg-6">
           <div class="row mt-4 mb-5">
-            <div class="col prices">
+            <div class="col prices text-left">
               <p>High Price: {{ stock.high }}</p>
               <p>Low Price: {{ stock.low }}</p>
               <p>Open Price: {{ stock.open }}</p>
               <p>Prev. Close: {{ stock.prevClose }}</p>
               <p>Volume: {{ stock.volume }}</p>
             </div>
-            <div class="col prices" *ngIf="market">
+            <div class="col prices" *ngIf="!market">
               <p *ngIf="stock.mid">Mid Price: {{ stock.mid }}</p>
               <p *ngIf="!stock.mid">Mid Price: -</p>
               <p>Ask Price: {{ stock.askPrize }}</p>
@@ -160,7 +160,7 @@
           <p style="text-align: left">Start Date: {{ stock.startDate }}</p>
           <p style="text-align: left">{{ stock.description }}</p>
         </div>
-        <div class="col">
+        <div class="col-lg-6">
           <app-detailschart
             [ticker]="stock.ticker"
             [timestamp]="stock.timestamp"
@@ -176,14 +176,18 @@
           <div class="col">
             <div *ngFor="let article of articles; index as i">
               <div *ngIf="i % 2">
-                <app-news [article]="article"></app-news>
+                <div class="card mt-3 news-card">
+                  <app-news [article]="article"></app-news>
+                </div>
               </div>
             </div>
           </div>
           <div class="col">
             <div *ngFor="let article of articles; index as i">
               <div *ngIf="!(i % 2)">
-                <app-news [article]="article"></app-news>
+                <div class="card mt-3 news-card">
+                  <app-news [article]="article"></app-news>
+                </div>
               </div>
             </div>
           </div>
@@ -191,7 +195,9 @@
       </div>
     </mat-tab>
     <mat-tab label="Charts">
-      <app-chart [ticker]="ticker"></app-chart>
+      <ng-template matTabContent>
+        <app-chart [ticker]="ticker"></app-chart>
+      </ng-template>
     </mat-tab>
   </mat-tab-group>
 </div>

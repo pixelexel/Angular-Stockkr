@@ -22,13 +22,20 @@
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
 />
 
-<div class="card news-card mt-4 align" (click)="open(content)">
+<!-- <div class="card news-card mt-4 align" (click)="open(content)">
   <div class="card-body">
-    <img class="align-items-start mr-3 mb-1" src="{{ article.urlToImage }}" />
-    <p class="card-title">{{ article.title }}</p>
-  </div>
+    <div class="col-md-3 col-sm-12">
+      <img class="align-items-start mr-3 mb-1" src="{{ article.urlToImage }}" />
+    </div>
+    <div class="col col-sm-12">
+      <p>{{ article.title }}</p>
+    </div>
+  </div> -->
 
-  <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+<!-- </div> -->
+<div class="p-2 new-card float-sm-left d-sm-flex" (click)="open(content)">
+  <img class="col-md-3 mt-2" src="{{ article.urlToImage }}" />
+  <p class="ml-3">{{ article.title }}</p>
 </div>
 
 <ng-template #content let-modal>

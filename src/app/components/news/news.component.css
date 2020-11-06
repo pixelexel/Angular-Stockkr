@@ -1,7 +1,7 @@
 img {
   height: 5rem;
-  width: 10rem;
-  float: left;
+  width: 20rem;
+  /* float: left; */
 }
 
 .fa {
@@ -18,5 +18,4 @@ img {
 
 .news-card {
   height: 8rem;
-  background-color: #fafafa;
 }

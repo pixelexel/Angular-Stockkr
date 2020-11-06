@@ -12,6 +12,7 @@
   color: #76767d;
   padding-top: 5px;
   padding-bottom: 5px;
+  line-height: 1;
 }
 
 .row-three {
@@ -24,6 +25,11 @@
 
 .prices p {
   margin: 0.1rem;
+}
+
+.news-card {
+  background-color: #fafafa;
+  cursor: pointer;
 }
 
 /* .mat-tab {
