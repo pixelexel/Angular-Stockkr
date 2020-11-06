@@ -2,3 +2,31 @@
   width: 100%;
   text-align: center;
 } */
+
+.row-one {
+  font-size: 2.5rem;
+}
+
+.row-two {
+  font-size: 2rem;
+  color: #76767d;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.row-three {
+  font-size: 0.8rem;
+}
+
+.summary {
+  text-align: center;
+}
+
+.prices p {
+  margin: 0.1rem;
+}
+
+/* .mat-tab {
+  max-width: 100%;
+  overflow-x: hidden;
+} */

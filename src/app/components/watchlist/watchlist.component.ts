@@ -31,6 +31,19 @@ export class WatchlistComponent implements OnInit {
     }
   }
 
+  setMarketColor(stock) {
+    if (stock.change > 0) {
+      stock.color = 'g';
+      stock.marketColor = '#297f00';
+    } else if (stock.change < 0) {
+      stock.color = 'r';
+      stock.marketColor = '#f31100';
+    } else {
+      stock.color = 'b';
+      stock.marketColor = 'black';
+    }
+  }
+
   closeCard(ticker) {
     this.stockList = this.stockList.filter((stock) => stock.ticker !== ticker);
     this.watchlist = this.watchlist.filter(
@@ -50,6 +63,12 @@ export class WatchlistComponent implements OnInit {
   getStockData(watchlist) {
     this.detailsService.getStockList(watchlist).subscribe((stocks) => {
       console.log('stocks');
+      stocks.forEach((stock) => {
+        stock.change = stock.last - stock.prevClose;
+        this.setMarketColor(stock);
+        stock.changePercent = (stock.change * 100) / stock.prevClose;
+      });
+
       this.stockList = stocks;
       this.loading = false;
     });

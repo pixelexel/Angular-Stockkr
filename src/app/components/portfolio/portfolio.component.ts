@@ -12,6 +12,7 @@ export class PortfolioComponent implements OnInit {
   stockList: Array<Stock> = [];
   emptyStockList = false;
   loading = true;
+  market: boolean;
 
   constructor(private detailsService: DetailsService) {}
 
@@ -54,8 +55,28 @@ export class PortfolioComponent implements OnInit {
   //   localStorage.removeItem(ticker);
   // }
 
+  setMarketColor(stock) {
+    if (stock.my_change > 0) {
+      stock.color = 'g';
+      stock.marketColor = '#297f00';
+    } else if (stock.my_change < 0) {
+      stock.color = 'r';
+      stock.marketColor = '#f31100';
+    } else {
+      stock.color = 'b';
+      stock.marketColor = 'black';
+    }
+  }
+
   getStockData(portfolio) {
     this.detailsService.getStockList(portfolio).subscribe((stocks) => {
+      var timestamp = new Date(stocks[0].timestamp).getTime();
+      var current_time = new Date().getTime();
+      if (Math.abs(current_time - timestamp) < 60000) {
+        this.market = true;
+      } else {
+        this.market = false;
+      }
       //Add remaining details for the card
       stocks.forEach((stock) => {
         if (localStorage.getItem(stock.ticker + '_quantity')) {
@@ -67,7 +88,10 @@ export class PortfolioComponent implements OnInit {
             localStorage.getItem(stock.ticker + '_total')
           );
           stock.my_average = stock.my_total / stock.my_quantity;
-          stock.my_change = stock.my_average - stock.last;
+          stock.my_change = stock.last - stock.my_average;
+          stock.my_market_value = stock.last * stock.my_quantity;
+
+          this.setMarketColor(stock);
         }
       });
       this.stockList = stocks;

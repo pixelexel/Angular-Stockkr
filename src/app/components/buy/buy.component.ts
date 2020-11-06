@@ -11,6 +11,8 @@ import * as $ from 'jquery';
 export class BuyComponent implements OnInit {
   @Input() ticker: string;
   @Input() last: number;
+  @Input() primary: boolean = false;
+  @Input() market: boolean;
   @Output() notify: EventEmitter<string> = new EventEmitter<string>();
   total: number = 0.0;
   current_quantity: number;

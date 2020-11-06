@@ -22,27 +22,25 @@
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
 />
 
-<div class="card" style="width: 18rem" (click)="open(content)">
-  <img
-    class="card-img-left"
-    src="{{ article.urlToImage }}"
-    alt="Image for news"
-  />
+<div class="card news-card mt-4 align" (click)="open(content)">
   <div class="card-body">
-    <!-- <h5 class="card-title">Card title</h5> -->
-    <p class="card-text">
-      {{ article.title }}
-    </p>
-    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+    <img class="align-items-start mr-3 mb-1" src="{{ article.urlToImage }}" />
+    <p class="card-title">{{ article.title }}</p>
   </div>
+
+  <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
 </div>
 
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">
-      {{ article.source.name }}
-    </h4>
-    <p>{{ article.publishedAt }}</p>
+    <div class="title">
+      <h1 class="modal-title mb-0" id="modal-basic-title">
+        {{ article.source.name }}
+      </h1>
+      <p style="color: #76767d">
+        {{ article.publishedAt | date: "longDate" }}
+      </p>
+    </div>
     <button
       type="button"
       class="close"
@@ -52,17 +50,43 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <h2>{{ article.title }}</h2>
-  <p>{{ article.description }}</p>
-  <div class="card" style="width: 18rem">
-    <div class="card-body">
-      <p class="card-text">Share</p>
-      <!-- <div
+  <div class="modal-body">
+    <p class="mb-1" style="font-size: 1.1rem; font-weight: 600">
+      {{ article.title }}
+    </p>
+    <p class="mt-0 mb-0">{{ article.description }}</p>
+    <p class="mt-0 mb-5" style="color: #6b6868">
+      For more details click <a href="{{ article.url }}">here</a>
+    </p>
+    <div class="card">
+      <div class="card-body">
+        <p class="card-text">Share</p>
+        <a
+          target="_blank"
+          href="{{ article.fb_link }}"
+          class="fb-xfbml-parse-ignore"
+          style="float: left"
+          ><i class="fa fa-facebook-square mr-2"></i>
+        </a>
+        <a
+          target="_blank"
+          class="twitter-share-button"
+          href="{{ article.twitter_link }}"
+          data-size="large"
+        >
+          <i class="fa fa-twitter"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- <div
         class="fb-share-button"
         data-href="https://www.your-domain.com/your-page.html"
         data-layout="button_count"
       ></div> -->
-      <!-- <div
+<!-- <div
         class="fb-share-button"
         data-href="https://developers.facebook.com/docs/plugins/"
         data-layout="button"
@@ -70,21 +94,3 @@
         style="float: left"
       >
       </div> -->
-      <a
-        target="_blank"
-        href="{{ article.fb_link }}"
-        class="fb-xfbml-parse-ignore"
-        style="float: left"
-        ><i class="fa fa-facebook-square"></i>
-      </a>
-      <a
-        target="_blank"
-        class="twitter-share-button"
-        href="{{ article.twitter_link }}"
-        data-size="large"
-      >
-        <i class="fa fa-twitter"></i>
-      </a>
-    </div>
-  </div>
-</ng-template>

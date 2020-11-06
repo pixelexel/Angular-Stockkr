@@ -59,24 +59,27 @@
       </button>
     </div>
   </div>
+
   <!-- Top -->
-  <div class="row">
+
+  <div class="row row-one mt-2">
     <div class="col">
-      <h1 style="float: left">{{ stock.ticker }} &nbsp;</h1>
+      <p style="float: left; padding-right: 0.3rem">{{ stock.ticker }}</p>
       <app-star [ticker]="stock.ticker"></app-star>
     </div>
-    <div class="col" style="color:{{ marketColor }}">
+    <div class="col text-right" style="color:{{ marketColor }}">
       {{ stock.last | number: "1.2-2" }}
     </div>
   </div>
-  <div class="row">
+
+  <div class="row row-two">
     <div class="col">
       <p style="text-align: left">{{ stock.name }}</p>
     </div>
-    <div class="col" style="color:{{ marketColor }}">
+    <div class="col text-right" style="color:{{ marketColor }}">
       <svg
-        width="1em"
-        height="1em"
+        width="0.6em"
+        height="0.6em"
         viewBox="0 0 16 16"
         class="bi bi-caret-down-fill"
         fill="#f31100"
@@ -88,8 +91,8 @@
         />
       </svg>
       <svg
-        width="1em"
-        height="1em"
+        width="0.6em"
+        height="0.6em"
         viewBox="0 0 16 16"
         class="bi bi-caret-up-fill"
         fill="#297f00"
@@ -105,11 +108,11 @@
       }}%)
     </div>
   </div>
-  <div class="row">
+  <div class="row row-three">
     <div class="col">
       <p>{{ stock.exchangeCode }}</p>
     </div>
-    <div class="col">
+    <div class="col text-right">
       <p>{{ stock.currentDate }}</p>
     </div>
   </div>
@@ -118,10 +121,11 @@
       style="padding-left: 15px"
       [ticker]="stock.ticker"
       [last]="stock.last"
+      [market]="market"
       (notify)="showBoughtBanner($event)"
     ></app-buy>
   </div>
-  <div class="row justify-content-center mt-2">
+  <div class="row justify-content-center mt-2 mb-3">
     <div *ngIf="market">
       <p style="background-color: #d7edda">Market is Open</p>
     </div>
@@ -129,41 +133,65 @@
       <p style="background-color: #f5d7d9">{{ market_closed }}</p>
     </div>
   </div>
-  <div class="row">
-    <mat-tab-group animationDuration="0ms">
-      <mat-tab label="First"
-        >{{ stock.startDate }} {{ stock.description }}
-        <app-detailschart
-          [ticker]="stock.ticker"
-          [timestamp]="stock.timestamp"
-          [color]="color"
-        ></app-detailschart>
-      </mat-tab>
-      <mat-tab label="Second">
-        <div class="news_tab">
-          <div class="row">
-            <div class="col">
-              <table style="float: left">
-                <tr *ngFor="let article of articles; index as i">
-                  <td *ngIf="i % 2">
-                    <app-news [article]="article"></app-news>
-                  </td>
-                </tr>
-              </table>
+
+  <!-- Tabs -->
+  <mat-tab-group mat-stretch-tabs animationDuration="0ms">
+    <!-- <mat-tab label="Summary">
+      <div class="row summary">
+        <div class="col">
+          <div class="row mt-4 mb-5">
+            <div class="col prices">
+              <p>High Price: {{ stock.high }}</p>
+              <p>Low Price: {{ stock.low }}</p>
+              <p>Open Price: {{ stock.open }}</p>
+              <p>Prev. Close: {{ stock.prevClose }}</p>
+              <p>Volume: {{ stock.volume }}</p>
             </div>
-            <div class="col">
-              <table>
-                <tr *ngFor="let article of articles; index as i">
-                  <td *ngIf="!(i % 2)">
-                    <app-news [article]="article"></app-news>
-                  </td>
-                </tr>
-              </table>
+            <div class="col prices" *ngIf="market">
+              <p *ngIf="stock.mid">Mid Price: {{ stock.mid }}</p>
+              <p *ngIf="!stock.mid">Mid Price: -</p>
+              <p>Ask Price: {{ stock.askPrize }}</p>
+              <p>Ask Size: {{ stock.askSize }}</p>
+              <p>Bid Price: {{ stock.bidPrice }}</p>
+              <p>Bid Size: {{ stock.bidSize }}</p>
+            </div>
+          </div>
+          <h2>Company's Description</h2>
+          <p style="text-align: left">Start Date: {{ stock.startDate }}</p>
+          <p style="text-align: left">{{ stock.description }}</p>
+        </div>
+        <div class="col">
+          <app-detailschart
+            [ticker]="stock.ticker"
+            [timestamp]="stock.timestamp"
+            [color]="color"
+          ></app-detailschart>
+        </div>
+      </div>
+    </mat-tab> -->
+
+    <mat-tab label="Top News">
+      <div class="news_tab">
+        <div class="row">
+          <div class="col">
+            <div *ngFor="let article of articles; index as i">
+              <div *ngIf="i % 2">
+                <app-news [article]="article"></app-news>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div *ngFor="let article of articles; index as i">
+              <div *ngIf="!(i % 2)">
+                <app-news [article]="article"></app-news>
+              </div>
             </div>
           </div>
         </div>
-      </mat-tab>
-      <!-- <mat-tab label="Third"><app-chart [ticker]="ticker"></app-chart></mat-tab> -->
-    </mat-tab-group>
-  </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Charts">
+      <!-- <app-chart [ticker]="ticker"></app-chart> -->
+    </mat-tab>
+  </mat-tab-group>
 </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DetailsService } from '../../services/details.service';
 import { Stock } from '../../model/Stock';
+import { News } from '../../model/News';
 import * as $ from 'jquery';
 
 @Component({
@@ -12,7 +13,7 @@ import * as $ from 'jquery';
 export class DetailsComponent implements OnInit {
   ticker: string;
   stock: Stock;
-  articles: [];
+  articles: News[];
   market: boolean = false;
   market_closed: string;
   loading: boolean = true;
@@ -42,6 +43,11 @@ export class DetailsComponent implements OnInit {
 
       this.detailsService.getNews(this.ticker).subscribe((news) => {
         this.articles = news['articles'];
+        // this.articles.forEach((article)=>{
+        //   article.publishedAt =
+        // }
+        // )
+        // this.articles['publishedAt'] = this.
         //console.log(this.articles);
       });
     });

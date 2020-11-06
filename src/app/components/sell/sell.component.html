@@ -13,7 +13,7 @@
   <div class="modal-body">
     <form id="form">
       <div class="form-group">
-        <p>Current Price: {{ last }}</p>
+        <p>Current Price: {{ last | number: "1.2-2" }}</p>
         <label for="quantity">Quantity</label>
         <div class="input-group">
           <input

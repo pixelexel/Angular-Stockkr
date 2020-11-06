@@ -1,5 +1,5 @@
 <div class="container">
-  <p>My Portfolio</p>
+  <h1 class="mb-5" style="font-size: 2rem">My Portfolio</h1>
   <div class="row justify-content-center">
     <mat-spinner [diameter]="50" *ngIf="loading"></mat-spinner>
   </div>
@@ -12,9 +12,11 @@
       >
         Currently you don't have any stock.
       </div>
-      <div class="card text-center" *ngFor="let stock of stockList">
+
+      <div class="card text-center mb-3" *ngFor="let stock of stockList">
         <app-portfolio-card
           [stock]="stock"
+          [market]="market"
           (notify)="updatePortfolio($event)"
         ></app-portfolio-card>
       </div>

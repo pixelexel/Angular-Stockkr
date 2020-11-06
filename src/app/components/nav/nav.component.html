@@ -1,4 +1,4 @@
-<div class="nav-container">
+<div class="nav-container mb-4">
   <nav
     class="navbar fixed-top sticky-top navbar-dark navbar-purple navbar-expand-lg"
   >
@@ -20,11 +20,13 @@
       id="navbarSupportedContent"
     >
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item search-nav active">
+        <li class="nav-item search-nav">
           <a
             class="nav-link"
             [routerLink]="['/']"
             routerLinkActive="router-link-active"
+            data-toggle="collapse"
+            data-target=".navbar-collapse.show"
             >Search</a
           >
         </li>
@@ -33,6 +35,8 @@
             class="nav-link"
             [routerLink]="['/watchlist']"
             routerLinkActive="router-link-active"
+            data-toggle="collapse"
+            data-target=".navbar-collapse.show"
             >Watchlist</a
           >
         </li>
@@ -41,6 +45,8 @@
             class="nav-link"
             [routerLink]="['/portfolio']"
             routerLinkActive="router-link-active"
+            data-toggle="collapse"
+            data-target=".navbar-collapse.show"
             >Portfolio</a
           >
         </li>

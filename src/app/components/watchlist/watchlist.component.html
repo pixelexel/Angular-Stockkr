@@ -1,5 +1,5 @@
 <div class="container">
-  <p>My Watchlist</p>
+  <h1 class="mb-5" style="font-size: 2rem">My Watchlist</h1>
   <div class="row justify-content-center">
     <mat-spinner [diameter]="50" *ngIf="loading"></mat-spinner>
   </div>
@@ -9,8 +9,8 @@
         <div class="alert alert-warning" *ngIf="emptyStockList" role="alert">
           Currently you don't have any stock in your watchlist.
         </div>
-        <div class="card" *ngFor="let stock of stockList">
-          <div *ngIf="stock.ticker">
+        <div class="card mb-3" *ngFor="let stock of stockList">
+          <div class="my-card" *ngIf="stock.ticker">
             <div
               class="close"
               aria-label="Close"
@@ -27,9 +27,63 @@
                 >&times;</span
               >
             </div>
+            <!-- style="float: left; display: inline" -->
             <a [routerLink]="['/details', stock.ticker]">
-              <div class="card-body" style="float: left; display: inline">
-                {{ stock.ticker }}
+              <div class="card-body">
+                <div class="row row-one">
+                  <div class="col">
+                    <h1 style="float: left; padding-right: 0.3rem">
+                      {{ stock.ticker }}
+                    </h1>
+                  </div>
+                  <div
+                    class="col text-right mr-1"
+                    style="color:{{ stock.marketColor }}"
+                  >
+                    <h1>{{ stock.last | number: "1.2-2" }}</h1>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <h3 style="text-align: left">{{ stock.name }}</h3>
+                  </div>
+                  <div
+                    class="col text-right mr-1"
+                    style="color:{{ stock.marketColor }}"
+                  >
+                    <h3>
+                      <svg
+                        width="0.6em"
+                        height="0.6em"
+                        viewBox="0 0 16 16"
+                        class="bi bi-caret-down-fill"
+                        fill="#f31100"
+                        xmlns="http://www.w3.org/2000/svg"
+                        *ngIf="stock.color === 'r'"
+                      >
+                        <path
+                          d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"
+                        />
+                      </svg>
+                      <svg
+                        width="0.6em"
+                        height="0.6em"
+                        viewBox="0 0 16 16"
+                        class="bi bi-caret-up-fill"
+                        fill="#297f00"
+                        xmlns="http://www.w3.org/2000/svg"
+                        *ngIf="stock.color === 'g'"
+                      >
+                        <path
+                          d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"
+                        />
+                      </svg>
+                      {{ stock.change | number: "1.2-2" }} ({{
+                        stock.changePercent | number: "1.2-2"
+                      }}%)
+                    </h3>
+                  </div>
+                </div>
               </div>
             </a>
           </div>

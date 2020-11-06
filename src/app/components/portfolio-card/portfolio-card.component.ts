@@ -8,6 +8,7 @@ import { Stock } from 'src/app/model/Stock';
 })
 export class PortfolioCardComponent implements OnInit {
   @Input() stock: Stock;
+  @Input() market: boolean;
   @Output() notify: EventEmitter<any> = new EventEmitter();
 
   constructor() {}

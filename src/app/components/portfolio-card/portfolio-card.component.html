@@ -1,20 +1,108 @@
 <a [routerLink]="['/details', stock.ticker]">
-  <div class="card-header">{{ stock.ticker }} {{ stock.name }}</div>
+  <div class="card-header text-left">
+    <div style="margin-bottom: 1px">
+      <h1>
+        {{ stock.ticker
+        }}<span
+          ><p
+            style="
+              color: #76767d;
+              display: inline;
+              font-size: 1rem;
+              font-weight: 600;
+            "
+            class="ml-1"
+          >
+            {{ stock.name }}
+          </p></span
+        >
+      </h1>
+    </div>
+  </div>
 </a>
 <div class="card-body">
-  <p class="card-text">
+  <div class="row">
+    <div class="col">
+      <div class="row">
+        <div class="col text-left">Quantity:</div>
+        <div class="col text-right">
+          {{ stock.my_quantity | number: "1.2-2" }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col text-left">Avg. Cost/Share:</div>
+        <div class="col text-right">
+          {{ stock.my_average | number: "1.2-2" }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col text-left">Total Cost:</div>
+        <div class="col text-right">{{ stock.my_total | number: "1.2-2" }}</div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="row">
+        <div class="col text-left">Change:</div>
+        <div class="col text-right" style="color:{{ stock.marketColor }}">
+          <svg
+            width="0.6em"
+            height="0.6em"
+            viewBox="0 0 16 16"
+            class="bi bi-caret-down-fill"
+            fill="#f31100"
+            xmlns="http://www.w3.org/2000/svg"
+            *ngIf="stock.color === 'r'"
+          >
+            <path
+              d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"
+            />
+          </svg>
+          <svg
+            width="0.6em"
+            height="0.6em"
+            viewBox="0 0 16 16"
+            class="bi bi-caret-up-fill"
+            fill="#297f00"
+            xmlns="http://www.w3.org/2000/svg"
+            *ngIf="stock.color === 'g'"
+          >
+            <path
+              d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"
+            />
+          </svg>
+          {{ stock.my_change | number: "1.2-2" }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col text-left">Current Price:</div>
+        <div class="col text-right" style="color:{{ stock.marketColor }}">
+          {{ stock.last | number: "1.2-2" }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col text-left">Market Value:</div>
+        <div class="col text-right" style="color:{{ stock.marketColor }}">
+          {{ stock.my_market_value | number: "1.2-2" }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <p class="card-text">
     {{ stock.my_quantity }}
-  </p>
+  </p> -->
 </div>
-<div class="card-footer text-muted">
+<div class="card-footer text-right">
   <app-buy
     [ticker]="stock.ticker"
     [last]="stock.last"
+    [market]="market"
+    [primary]="true"
     (notify)="updatePortfolio()"
   ></app-buy
   ><app-sell
     [ticker]="stock.ticker"
     [last]="stock.last"
+    [market]="market"
     (notify)="updatePortfolio()"
   ></app-sell>
 </div>
