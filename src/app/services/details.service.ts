@@ -8,7 +8,7 @@ import { mergeMap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class DetailsService {
-  rootUrl: string = 'http://localhost:8080/api';
+  rootUrl: string = 'http://6th78tqqlpa.us-east-1.elasticbeanstalk.com/api';
   // http://6th78tqqlpa.us-east-1.elasticbeanstalk.com
   // http://localhost:8080
 
@@ -30,7 +30,7 @@ export class DetailsService {
   }
 
   getStockDetails(query): Observable<Stock> {
-    return timer(0, 15000000000).pipe(
+    return timer(0, 15000).pipe(
       mergeMap(() => {
         return this.http.get<Stock>(`${this.detailsUrl}${query}`);
       })
@@ -38,7 +38,7 @@ export class DetailsService {
   }
 
   getCharts1(ticker, date) {
-    return timer(0, 1500000000).pipe(
+    return timer(0, 15000).pipe(
       mergeMap(() => {
         return this.http.get(`${this.charts1Url}${ticker}&date=${date}`);
       })

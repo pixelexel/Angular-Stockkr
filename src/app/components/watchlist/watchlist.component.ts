@@ -63,17 +63,33 @@ export class WatchlistComponent implements OnInit {
     localStorage.removeItem(ticker);
   }
 
+  // getStockData(watchlist) {
+  //   this.detailsService.getStockList(watchlist).subscribe((stocks) => {
+  //     console.log('stocks');
+  //     stocks.forEach((stock) => {
+  //       stock.change = stock.last - stock.prevClose;
+  //       this.setMarketColor(stock);
+  //       stock.changePercent = (stock.change * 100) / stock.prevClose;
+  //     });
+
+  //     this.stockList = stocks;
+  //     this.loading = false;
+  //   });
+  // }
+
   getStockData(watchlist) {
-    this.detailsService.getStockList(watchlist).subscribe((stocks) => {
-      console.log('stocks');
-      stocks.forEach((stock) => {
+    var tempList: Array<Stock> = [];
+    watchlist.forEach((ticker) => {
+      this.detailsService.getFirstStockDetails(ticker).subscribe((stock) => {
         stock.change = stock.last - stock.prevClose;
         this.setMarketColor(stock);
         stock.changePercent = (stock.change * 100) / stock.prevClose;
+        tempList.push(stock);
+        if (tempList.length === watchlist.length) {
+          this.stockList = tempList;
+          this.loading = false;
+        }
       });
-
-      this.stockList = stocks;
-      this.loading = false;
     });
   }
 }

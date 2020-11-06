@@ -1,17 +1,12 @@
 <a [routerLink]="['/details', stock.ticker]">
   <div class="card-header text-left">
     <div style="margin-bottom: 1px">
-      <p style="font-size: 1.5rem; font-weight: 400">
+      <p style="font-size: 1.5rem" class="fonts-1">
         {{ stock.ticker
         }}<span
           ><p
-            style="
-              color: #76767d;
-              display: inline;
-              font-size: 1rem;
-              font-weight: 400;
-            "
-            class="ml-1"
+            style="color: #76767d; display: inline; font-size: 1rem"
+            class="fonts-1 ml-1"
           >
             {{ stock.name }}
           </p></span
@@ -24,26 +19,31 @@
   <div class="row">
     <div class="col-lg-6">
       <div class="row">
-        <div class="col text-left">Quantity:</div>
-        <div class="col text-right">
+        <div class="col text-left fonts-2">Quantity:</div>
+        <div class="col text-right fonts-2">
           {{ stock.my_quantity | number: "1.2-2" }}
         </div>
       </div>
       <div class="row">
-        <div class="col text-left">Avg. Cost/Share:</div>
-        <div class="col text-right">
+        <div class="col text-left fonts-2">Avg. Cost/Share:</div>
+        <div class="col text-right fonts-2">
           {{ stock.my_average | number: "1.2-2" }}
         </div>
       </div>
       <div class="row">
-        <div class="col text-left">Total Cost:</div>
-        <div class="col text-right">{{ stock.my_total | number: "1.2-2" }}</div>
+        <div class="col text-left fonts-2">Total Cost:</div>
+        <div class="col text-right fonts-2">
+          {{ stock.my_total | number: "1.2-2" }}
+        </div>
       </div>
     </div>
     <div class="col-lg-6">
       <div class="row">
-        <div class="col text-left">Change:</div>
-        <div class="col text-right" style="color:{{ stock.marketColor }}">
+        <div class="col text-left fonts-2">Change:</div>
+        <div
+          class="col text-right fonts-2"
+          style="color:{{ stock.marketColor }}"
+        >
           <svg
             width="0.6em"
             height="0.6em"
@@ -74,14 +74,20 @@
         </div>
       </div>
       <div class="row">
-        <div class="col text-left">Current Price:</div>
-        <div class="col text-right" style="color:{{ stock.marketColor }}">
+        <div class="col text-left fonts-2">Current Price:</div>
+        <div
+          class="col text-right fonts-2"
+          style="color:{{ stock.marketColor }}"
+        >
           {{ stock.last | number: "1.2-2" }}
         </div>
       </div>
       <div class="row">
-        <div class="col text-left">Market Value:</div>
-        <div class="col text-right" style="color:{{ stock.marketColor }}">
+        <div class="col text-left fonts-2">Market Value:</div>
+        <div
+          class="col text-right fonts-2"
+          style="color:{{ stock.marketColor }}"
+        >
           {{ stock.my_market_value | number: "1.2-2" }}
         </div>
       </div>

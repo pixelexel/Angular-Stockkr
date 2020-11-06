@@ -1,5 +1,5 @@
 <div class="container">
-  <h1 class="mb-5" style="font-size: 2rem">My Watchlist</h1>
+  <h1 class="mb-5 title">My Watchlist</h1>
   <div class="row justify-content-center">
     <mat-spinner [diameter]="50" *ngIf="loading"></mat-spinner>
   </div>
@@ -32,26 +32,28 @@
               <div class="card-body">
                 <div class="row row-one">
                   <div class="col">
-                    <h1>
+                    <h1 class="fonts-1">
                       {{ stock.ticker }}
                     </h1>
                   </div>
                   <div
-                    class="col text-right mr-1"
+                    class="col text-right"
                     style="color:{{ stock.marketColor }}"
                   >
-                    <h1>{{ stock.last | number: "1.2-2" }}</h1>
+                    <h1 class="fonts-1">{{ stock.last | number: "1.2-2" }}</h1>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col">
-                    <h3 style="text-align: left">{{ stock.name }}</h3>
+                  <div class="col text-left">
+                    <h3 class="fonts-2">
+                      {{ stock.name }}
+                    </h3>
                   </div>
                   <div
-                    class="col text-right mr-1"
+                    class="col text-right"
                     style="color:{{ stock.marketColor }}"
                   >
-                    <h3>
+                    <h3 class="fonts-2">
                       <svg
                         width="0.6em"
                         height="0.6em"
@@ -78,6 +80,7 @@
                           d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"
                         />
                       </svg>
+
                       {{ stock.change | number: "1.2-2" }} ({{
                         stock.changePercent | number: "1.2-2"
                       }}%)

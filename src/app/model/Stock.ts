@@ -7,7 +7,7 @@ export class Stock {
   open: number;
   mid: number;
   askSize: number;
-  askPrize: number;
+  askPrice: number;
   bidSize: number;
   bidPrice: number;
   volume: number;

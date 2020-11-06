@@ -147,10 +147,10 @@
               <p>Prev. Close: {{ stock.prevClose }}</p>
               <p>Volume: {{ stock.volume }}</p>
             </div>
-            <div class="col prices" *ngIf="!market">
+            <div class="col prices" *ngIf="market">
               <p *ngIf="stock.mid">Mid Price: {{ stock.mid }}</p>
               <p *ngIf="!stock.mid">Mid Price: -</p>
-              <p>Ask Price: {{ stock.askPrize }}</p>
+              <p>Ask Price: {{ stock.askPrice }}</p>
               <p>Ask Size: {{ stock.askSize }}</p>
               <p>Bid Price: {{ stock.bidPrice }}</p>
               <p>Bid Size: {{ stock.bidSize }}</p>

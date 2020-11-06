@@ -81,17 +81,42 @@ export class PortfolioComponent implements OnInit {
     }
   }
 
+  // getStockData(portfolio) {
+  //   this.detailsService.getStockList(portfolio).subscribe((stocks) => {
+  //     var timestamp = new Date(stocks[0].timestamp).getTime();
+  //     var current_time = new Date().getTime();
+  //     if (Math.abs(current_time - timestamp) < 60000) {
+  //       this.market = true;
+  //     } else {
+  //       this.market = false;
+  //     }
+  //     //Add remaining details for the card
+  //     stocks.forEach((stock) => {
+  //       if (localStorage.getItem(stock.ticker + '_quantity')) {
+  //         stock.my_quantity = Number(
+  //           localStorage.getItem(stock.ticker + '_quantity')
+  //         );
+
+  //         stock.my_total = Number(
+  //           localStorage.getItem(stock.ticker + '_total')
+  //         );
+  //         stock.my_average = stock.my_total / stock.my_quantity;
+  //         stock.my_change = stock.last - stock.my_average;
+  //         console.log(stock.my_change);
+  //         stock.my_market_value = stock.last * stock.my_quantity;
+
+  //         this.setMarketColor(stock);
+  //       }
+  //     });
+  //     this.stockList = stocks;
+  //     this.loading = false;
+  //   });
+  // }
+
   getStockData(portfolio) {
-    this.detailsService.getStockList(portfolio).subscribe((stocks) => {
-      var timestamp = new Date(stocks[0].timestamp).getTime();
-      var current_time = new Date().getTime();
-      if (Math.abs(current_time - timestamp) < 60000) {
-        this.market = true;
-      } else {
-        this.market = false;
-      }
-      //Add remaining details for the card
-      stocks.forEach((stock) => {
+    var tempList: Array<Stock> = [];
+    portfolio.forEach((ticker) => {
+      this.detailsService.getFirstStockDetails(ticker).subscribe((stock) => {
         if (localStorage.getItem(stock.ticker + '_quantity')) {
           stock.my_quantity = Number(
             localStorage.getItem(stock.ticker + '_quantity')
@@ -107,9 +132,13 @@ export class PortfolioComponent implements OnInit {
 
           this.setMarketColor(stock);
         }
+        tempList.push(stock);
+
+        if (tempList.length === portfolio.length) {
+          this.stockList = tempList;
+          this.loading = false;
+        }
       });
-      this.stockList = stocks;
-      this.loading = false;
     });
   }
 }

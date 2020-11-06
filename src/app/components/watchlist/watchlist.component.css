@@ -1,5 +1,5 @@
 /* body {
-  font-family: "Open Sans", sans-serif;
+  font-family: "Open Sans", sans-serif !important;
 } */
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;600;800&display=swap");
 
@@ -12,6 +12,23 @@ a {
   height: 8rem;
 }
 
-.card-body {
+.row-one {
   font-family: "Open Sans", sans-serif;
+}
+
+.title {
+  font-size: 2rem;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+}
+
+.fonts-1 {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+}
+
+.fonts-2 {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+  margin-left: 1rem;
 }
