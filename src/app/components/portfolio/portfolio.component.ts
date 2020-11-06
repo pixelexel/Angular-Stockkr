@@ -28,6 +28,9 @@ export class PortfolioComponent implements OnInit {
       } else {
         this.getStockData(this.portfolio_list);
       }
+    } else {
+      this.loading = false;
+      this.emptyStockList = true;
     }
   }
 
@@ -57,11 +60,21 @@ export class PortfolioComponent implements OnInit {
 
   setMarketColor(stock) {
     if (stock.my_change > 0) {
-      stock.color = 'g';
-      stock.marketColor = '#297f00';
+      if (stock.my_change > 0.0000001) {
+        stock.color = 'g';
+        stock.marketColor = '#297f00';
+      } else {
+        stock.color = 'b';
+        stock.marketColor = 'black';
+      }
     } else if (stock.my_change < 0) {
-      stock.color = 'r';
-      stock.marketColor = '#f31100';
+      if (stock.my_change < -0.0000001) {
+        stock.color = 'r';
+        stock.marketColor = '#f31100';
+      } else {
+        stock.color = 'b';
+        stock.marketColor = 'black';
+      }
     } else {
       stock.color = 'b';
       stock.marketColor = 'black';
@@ -89,6 +102,7 @@ export class PortfolioComponent implements OnInit {
           );
           stock.my_average = stock.my_total / stock.my_quantity;
           stock.my_change = stock.last - stock.my_average;
+          console.log(stock.my_change);
           stock.my_market_value = stock.last * stock.my_quantity;
 
           this.setMarketColor(stock);

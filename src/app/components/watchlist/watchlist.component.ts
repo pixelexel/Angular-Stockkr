@@ -28,6 +28,9 @@ export class WatchlistComponent implements OnInit {
       } else {
         this.getStockData(this.watchlist);
       }
+    } else {
+      this.loading = false;
+      this.emptyStockList = true;
     }
   }
 
