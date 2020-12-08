@@ -9,7 +9,7 @@ const paths = {
   prod_build: "prod-build",
   server_file_name: "server.bundle.js",
   angular_src: "dist/**/*",
-  angular_dist: "prod-build/angular-stocks/dist",
+  angular_dist: "prod-build/",
   zipped_file_name: "angular-nodejs.zip",
 };
 
@@ -31,11 +31,7 @@ function createProdBuildFolder() {
 
 function buildAngularCodeTask(cb) {
   log("building Angular code into the directory");
-  return exec("ng build --prod", function (
-    err,
-    stdout,
-    stderr
-  ) {
+  return exec("ng build --prod", function (err, stdout, stderr) {
     log(stdout);
     log(stderr);
     cb(err);
@@ -63,6 +59,6 @@ exports.default = series(
   clean,
   createProdBuildFolder,
   buildAngularCodeTask,
-  parallel(copyAngularCodeTask, copyNodeJSCodeTask),
-  zippingTask
+  parallel(copyAngularCodeTask, copyNodeJSCodeTask)
+  //zippingTask
 );
