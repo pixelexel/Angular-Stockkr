@@ -8,14 +8,14 @@ import { mergeMap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class DetailsService {
-  rootUrl: string = 'http://6th78tqqlpa.us-east-1.elasticbeanstalk.com/api';
-  // http://6th78tqqlpa.us-east-1.elasticbeanstalk.com
+  rootUrl: string = 'https://stockkr.akshayx.xyz/api';
+  // rootUrl: string = ' http://localhost:8080/api';
   // http://localhost:8080
 
   autocompleteUrl: string = this.rootUrl + '/autocomplete?search=';
   detailsUrl: string = this.rootUrl + '/details?ticker=';
   newsUrl: string = this.rootUrl + '/news?ticker=';
-  charts1Url: string = this.rootUrl + '/charts1?ticker=';
+  charts1Url: string = this.rootUrl + '/charts_daily?ticker=';
   charts2Url: string = this.rootUrl + '/charts2?ticker=';
   stockListUrl: string = this.rootUrl + '/stocklist';
 
@@ -53,10 +53,11 @@ export class DetailsService {
     return this.http.get(`${this.charts2Url}${ticker}&date=${date}`);
   }
 
-  getStockList(stockList): Observable<Stock[]> {
-    const headers = { 'content-type': 'application/json' };
-    return this.http.post<Stock[]>(this.stockListUrl, stockList, {
-      headers: headers,
-    });
+  getStockList(query): Observable<Stock> {
+    return this.http.get<Stock>(`${this.stockListUrl}${query}`);
+    // const headers = { 'content-type': 'application/json' };
+    // return this.http.post<Stock[]>(this.stockListUrl, stockList, {
+    //   headers: headers,
+    // });
   }
 }
