@@ -8,9 +8,8 @@ import { mergeMap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class DetailsService {
-  rootUrl: string = 'https://stockkr.akshayx.xyz/api';
+  rootUrl: string = 'https://stockkr-server.akshayx.xyz/.netlify/functions/api';
   // rootUrl: string = ' http://localhost:8080/api';
-  // http://localhost:8080
 
   autocompleteUrl: string = this.rootUrl + '/autocomplete?search=';
   detailsUrl: string = this.rootUrl + '/details?ticker=';
