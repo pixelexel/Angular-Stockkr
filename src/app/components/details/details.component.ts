@@ -43,12 +43,6 @@ export class DetailsComponent implements OnInit {
 
       this.detailsService.getNews(this.ticker).subscribe((news) => {
         this.articles = news['articles'];
-        // this.articles.forEach((article)=>{
-        //   article.publishedAt =
-        // }
-        // )
-        // this.articles['publishedAt'] = this.
-        //console.log(this.articles);
       });
     });
   }
@@ -135,14 +129,3 @@ export class DetailsComponent implements OnInit {
       });
   }
 }
-
-// var time = this.stock.timestamp.slice(11, 16);
-// var hours = parseInt(time.slice(0, 2));
-// var minutes = parseInt(time.slice(3, 5));
-// console.log(hours, minutes);
-// if (hours > 9 && hours < 16) {
-//   this.market = true;
-// }
-// if (hours === 9 && minutes >= 30) {
-//   this.market = true;
-// }

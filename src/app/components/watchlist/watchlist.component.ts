@@ -26,7 +26,7 @@ export class WatchlistComponent implements OnInit {
         this.loading = false;
         this.emptyStockList = true;
       } else {
-        this.getStockData(this.watchlist);
+        this.getStockList(this.watchlist);
       }
     } else {
       this.loading = false;
@@ -55,7 +55,7 @@ export class WatchlistComponent implements OnInit {
     if (this.stockList.length === 0) {
       this.emptyStockList = true;
     } else {
-      this.getStockData(this.watchlist);
+      this.getStockList(this.watchlist);
     }
 
     //LS
@@ -63,33 +63,16 @@ export class WatchlistComponent implements OnInit {
     localStorage.removeItem(ticker);
   }
 
-  // getStockData(watchlist) {
-  //   this.detailsService.getStockList(watchlist).subscribe((stocks) => {
-  //     console.log('stocks');
-  //     stocks.forEach((stock) => {
-  //       stock.change = stock.last - stock.prevClose;
-  //       this.setMarketColor(stock);
-  //       stock.changePercent = (stock.change * 100) / stock.prevClose;
-  //     });
-
-  //     this.stockList = stocks;
-  //     this.loading = false;
-  //   });
-  // }
-
-  getStockData(watchlist) {
-    var tempList: Array<Stock> = [];
-    watchlist.forEach((ticker) => {
-      this.detailsService.getFirstStockDetails(ticker).subscribe((stock) => {
+  getStockList(watchlist) {
+    this.detailsService.getStockList(watchlist).subscribe((json) => {
+      this.stockList = json['stocks'];
+      this.stockList.forEach((stock) => {
         stock.change = stock.last - stock.prevClose;
         this.setMarketColor(stock);
         stock.changePercent = (stock.change * 100) / stock.prevClose;
-        tempList.push(stock);
-        if (tempList.length === watchlist.length) {
-          this.stockList = tempList;
-          this.loading = false;
-        }
       });
+
+      this.loading = false;
     });
   }
 }

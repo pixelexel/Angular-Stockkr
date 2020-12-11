@@ -29,7 +29,7 @@ export class DetailsService {
   }
 
   getStockDetails(query): Observable<Stock> {
-    return timer(0, 15000).pipe(
+    return timer(0, 60000).pipe(
       mergeMap(() => {
         return this.http.get<Stock>(`${this.detailsUrl}${query}`);
       })
@@ -37,7 +37,7 @@ export class DetailsService {
   }
 
   getCharts1(ticker, date) {
-    return timer(0, 15000).pipe(
+    return timer(0, 60000).pipe(
       mergeMap(() => {
         return this.http.get(`${this.charts1Url}${ticker}&date=${date}`);
       })
@@ -52,11 +52,13 @@ export class DetailsService {
     return this.http.get(`${this.charts2Url}${ticker}&date=${date}`);
   }
 
-  getStockList(query): Observable<Stock> {
-    return this.http.get<Stock>(`${this.stockListUrl}${query}`);
-    // const headers = { 'content-type': 'application/json' };
-    // return this.http.post<Stock[]>(this.stockListUrl, stockList, {
-    //   headers: headers,
-    // });
+  getStockList(stockList) {
+    var stockListQuery = '?';
+    stockList.forEach((ticker) => {
+      stockListQuery += 'ticker=' + ticker + '&';
+    });
+    stockListQuery = stockListQuery.slice(0, -1);
+    console.log(this.stockListUrl + stockListQuery);
+    return this.http.get(`${this.stockListUrl}${stockListQuery}`);
   }
 }

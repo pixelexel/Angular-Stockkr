@@ -26,7 +26,7 @@ export class PortfolioComponent implements OnInit {
         this.loading = false;
         this.emptyStockList = true;
       } else {
-        this.getStockData(this.portfolio_list);
+        this.getStockList(this.portfolio_list);
       }
     } else {
       this.loading = false;
@@ -40,23 +40,9 @@ export class PortfolioComponent implements OnInit {
       this.emptyStockList = true;
       this.stockList = [];
     } else {
-      this.getStockData(this.portfolio_list);
+      this.getStockList(this.portfolio_list);
     }
   }
-
-  // closeCard(ticker) {
-  //   this.stockList = this.stockList.filter((stock) => stock.ticker !== ticker);
-  //   if (this.stockList.length === 0) {
-  //     this.emptyStockList = true;
-  //   }
-  //   this.portfolio_list = this.portfolio_list.filter(
-  //     (stockTicker) => stockTicker !== ticker
-  //   );
-  //   //remove from list
-  //   localStorage.setItem('portfolio_list', JSON.stringify(this.portfolio_list));
-  //   //remove specific ticker LS
-  //   localStorage.removeItem(ticker);
-  // }
 
   setMarketColor(stock) {
     if (stock.my_change > 0) {
@@ -81,42 +67,11 @@ export class PortfolioComponent implements OnInit {
     }
   }
 
-  // getStockData(portfolio) {
-  //   this.detailsService.getStockList(portfolio).subscribe((stocks) => {
-  //     var timestamp = new Date(stocks[0].timestamp).getTime();
-  //     var current_time = new Date().getTime();
-  //     if (Math.abs(current_time - timestamp) < 60000) {
-  //       this.market = true;
-  //     } else {
-  //       this.market = false;
-  //     }
-  //     //Add remaining details for the card
-  //     stocks.forEach((stock) => {
-  //       if (localStorage.getItem(stock.ticker + '_quantity')) {
-  //         stock.my_quantity = Number(
-  //           localStorage.getItem(stock.ticker + '_quantity')
-  //         );
-
-  //         stock.my_total = Number(
-  //           localStorage.getItem(stock.ticker + '_total')
-  //         );
-  //         stock.my_average = stock.my_total / stock.my_quantity;
-  //         stock.my_change = stock.last - stock.my_average;
-  //         console.log(stock.my_change);
-  //         stock.my_market_value = stock.last * stock.my_quantity;
-
-  //         this.setMarketColor(stock);
-  //       }
-  //     });
-  //     this.stockList = stocks;
-  //     this.loading = false;
-  //   });
-  // }
-
-  getStockData(portfolio) {
-    var tempList: Array<Stock> = [];
-    portfolio.forEach((ticker) => {
-      this.detailsService.getFirstStockDetails(ticker).subscribe((stock) => {
+  getStockList(portfolio) {
+    this.detailsService.getStockList(portfolio).subscribe((json) => {
+      //Add remaining details for the card
+      this.stockList = json['stocks'];
+      this.stockList.forEach((stock) => {
         if (localStorage.getItem(stock.ticker + '_quantity')) {
           stock.my_quantity = Number(
             localStorage.getItem(stock.ticker + '_quantity')
@@ -127,18 +82,11 @@ export class PortfolioComponent implements OnInit {
           );
           stock.my_average = stock.my_total / stock.my_quantity;
           stock.my_change = stock.last - stock.my_average;
-          console.log(stock.my_change);
           stock.my_market_value = stock.last * stock.my_quantity;
-
           this.setMarketColor(stock);
         }
-        tempList.push(stock);
-
-        if (tempList.length === portfolio.length) {
-          this.stockList = tempList;
-          this.loading = false;
-        }
       });
+      this.loading = false;
     });
   }
 }
