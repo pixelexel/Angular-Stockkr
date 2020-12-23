@@ -43,8 +43,8 @@ export class SearchboxComponent implements OnInit {
     }
   }
 
-  loadDetails() {
-    this.router.navigate(['/details', this.query.ticker]);
+  loadDetails(ticker: String) {
+    this.router.navigate(['/details', ticker]);
   }
 
   // private getOptions(value: string) {

@@ -8,7 +8,7 @@
         <div class="search-box">
           <input
             type="text"
-            placeholder="Enter stock name"
+            placeholder="Search companies..."
             aria-label="Number"
             matInput
             [formControl]="myControl"
@@ -16,12 +16,16 @@
             [(ngModel)]="query"
           />
 
-          <button type="submit" (click)="loadDetails()">
+          <!-- <button type="submit" (click)="loadDetails()">
             <i class="fa fa-search" aria-hidden="true"></i>
-          </button>
+          </button> -->
         </div>
 
-        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-autocomplete
+          #auto="matAutocomplete"
+          [displayWith]="displayFn"
+          (optionSelected)="loadDetails($event.option.value.ticker)"
+        >
           <mat-option *ngIf="isLoading" class="is-loading"
             ><mat-spinner diameter="20"></mat-spinner
           ></mat-option>
